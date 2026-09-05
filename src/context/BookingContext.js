@@ -120,11 +120,14 @@ export const BookingProvider = ({ children }) => {
   const isFirstTimeUser = pastBookings.length === 0 || !pastBookings.some(b => b.status === 'Work Completed');
   const FIRST_TIME_DISCOUNT = 50; // ₹50 Welcome Discount
 
-  // Helper to accurately compute total from all line items
+  // Helper to accurately compute total from all line items (Including distance & overtime rules)
   const computeTotal = (booking) => {
     if (!booking) return 350;
     const base = Number(booking.base_amount || booking.service?.start_price || 299);
     const surge = Number(booking.emergency_surge || 0);
+    const distKm = Number(booking.distance_km ?? booking.worker?.distance_km ?? 0);
+    // Cooperative Fair-Wage Distance Rule: <= 7 km is free/base included; > 7 km charges ₹7 per additional km
+    const distanceCharge = distKm > 7 ? Math.round((distKm - 7) * 7) : 0;
     const extra = (booking.extra_work && booking.extra_work.approved) ? Number(booking.extra_work.amount || 0) : 0;
     const helper = (booking.second_worker && (booking.helper_request?.status === 'approved' || booking.second_worker))
       ? Number(booking.helper_request?.amount || booking.service?.helper_request?.amount || 200)
@@ -133,7 +136,7 @@ export const BookingProvider = ({ children }) => {
     const overtime = Number(booking.overtime_charge || 0);
     const cancelPenalty = Number(booking.cancellation_penalty_fee || 0);
     const discount = Number(booking.discount_applied || 0);
-    return Math.max(base + surge + extra + helper + partCost + overtime + cancelPenalty - discount, 49);
+    return Math.max(base + surge + distanceCharge + extra + helper + partCost + overtime + cancelPenalty - discount, 49);
   };
 
   // 1. Initialize Booking with Emergency Surge & First-Time Discount
@@ -216,6 +219,8 @@ export const BookingProvider = ({ children }) => {
       discount_applied: discount,
       total_amount: computedTotal,
       overtime_charge: 0,
+      distance_km: 0,
+      distance_charge: 0,
       cancellation_penalty_fee: cancellationPenaltyFee,
       is_procurement_paused: false,
       accumulated_work_seconds: 0,
@@ -240,12 +245,18 @@ export const BookingProvider = ({ children }) => {
   const assignWorker = (worker) => {
     setActiveBooking(prev => {
       if (!prev) return null;
-      return {
+      const distKm = Number(worker?.distance_km ?? prev.distance_km ?? 0);
+      const distanceCharge = distKm > 7 ? Math.round((distKm - 7) * 7) : 0;
+      const updated = {
         ...prev,
         worker,
+        distance_km: distKm,
+        distance_charge: distanceCharge,
         status: BOOKING_STATUSES[1],
         statusIndex: 1
       };
+      updated.total_amount = computeTotal(updated);
+      return updated;
     });
   };
 
@@ -283,17 +294,23 @@ export const BookingProvider = ({ children }) => {
 
     setActiveBooking(prev => {
       if (!prev) return null;
-      return {
+      const distKm = 0.9;
+      const distanceCharge = distKm > 7 ? Math.round((distKm - 7) * 7) : 0;
+      const updated = {
         ...prev,
         worker: {
           ...replacement,
           eta_minutes: 6,
-          distance_km: 0.9
+          distance_km: distKm
         },
+        distance_km: distKm,
+        distance_charge: distanceCharge,
         worker_delayed: false,
         status: BOOKING_STATUSES[1],
         statusIndex: 1
       };
+      updated.total_amount = computeTotal(updated);
+      return updated;
     });
     return replacement;
   };
@@ -384,8 +401,8 @@ export const BookingProvider = ({ children }) => {
     return { success: true };
   };
 
-  // 5.d Apply Overtime Charge for Extended Services (>2 Hours - Phase II)
-  const applyOvertimeCharge = (chargeAmount = 100) => {
+  // 5.d Apply Overtime Charge for Extended Services (>2 Hours - Phase II: ₹20 standard)
+  const applyOvertimeCharge = (chargeAmount = 20) => {
     setActiveBooking(prev => {
       if (!prev) return null;
       if (prev.overtime_charge === chargeAmount) return prev;

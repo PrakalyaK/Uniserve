@@ -166,6 +166,26 @@ export const Screen12_PaymentScreen = ({ navigation }) => {
             </View>
           )}
 
+          {/* Distance Travel Surcharge (>7 km: ₹7/km) */}
+          {activeBooking?.distance_charge > 0 && (
+            <View style={styles.itemRow}>
+              <View style={{ flexDirection: 'row', alignItems: 'center', flex: 1, marginRight: 8 }}>
+                <Ionicons name="location" size={13} color="#0369A1" style={{ marginRight: 4 }} />
+                <View>
+                  <Text style={[styles.itemLabel, { color: '#0369A1', fontWeight: '700' }]}>
+                    {t('distanceTravelSurcharge') || 'Distance Travel Surcharge'} ({activeBooking?.distance_km || activeBooking?.worker?.distance_km} km)
+                  </Text>
+                  <Text style={{ fontSize: 10, color: colors.textMuted }}>
+                    Standard base covers up to 7 km • ₹7/km for {Math.max(0, Math.round((activeBooking?.distance_km || activeBooking?.worker?.distance_km || 7) - 7))} extra km
+                  </Text>
+                </View>
+              </View>
+              <Text style={[styles.itemVal, { color: '#0369A1', fontWeight: '800' }]}>
+                +₹{activeBooking.distance_charge}
+              </Text>
+            </View>
+          )}
+
           {/* Overtime Surcharge (>2 Hours - Phase II) */}
           {activeBooking?.overtime_charge > 0 && (
             <View style={styles.itemRow}>

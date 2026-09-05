@@ -152,6 +152,16 @@ export const Screen11_CompletionOTP = ({ navigation }) => {
             </View>
           )}
 
+          {activeBooking?.distance_charge > 0 && (
+            <View style={styles.settlementRow}>
+              <Text style={[styles.settlementKey, { color: '#0369A1', fontWeight: '700' }]}>
+                • {t('distanceTravelSurcharge') || 'Distance Travel Surcharge'} (&gt;7 km: {activeBooking?.distance_km || activeBooking?.worker?.distance_km} km)
+              </Text>
+              <Text style={[styles.settlementVal, { color: '#0369A1', fontWeight: '800' }]}>
+                +₹{activeBooking.distance_charge}
+              </Text>
+            </View>
+          )}
           {activeBooking?.overtime_charge > 0 && (
             <View style={styles.settlementRow}>
               <Text style={[styles.settlementKey, { color: '#B45309', fontWeight: '700' }]}>

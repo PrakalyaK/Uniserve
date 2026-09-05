@@ -103,9 +103,9 @@ export const Screen02_OTPLogin = ({ navigation }) => {
     <SafeAreaView style={styles.safeArea}>
       <KeyboardAvoidingView
         behavior={Platform.OS === 'ios' ? 'padding' : undefined}
-        style={{ flex: 1 }}
+        style={styles.keyboardView}
       >
-        <ScrollView contentContainerStyle={styles.scrollContent} showsVerticalScrollIndicator={false}>
+        <ScrollView style={styles.scrollView} contentContainerStyle={styles.scrollContent} showsVerticalScrollIndicator={false}>
           {/* Header */}
           <TouchableOpacity
             style={styles.backBtn}
@@ -256,12 +256,26 @@ export const Screen02_OTPLogin = ({ navigation }) => {
 const styles = StyleSheet.create({
   safeArea: {
     flex: 1,
-    backgroundColor: colors.background
+    backgroundColor: colors.background,
+    width: '100%',
+    alignItems: 'center'
+  },
+  keyboardView: {
+    flex: 1,
+    width: '100%',
+    alignItems: 'center'
+  },
+  scrollView: {
+    width: '100%'
   },
   scrollContent: {
-    paddingHorizontal: 20,
+    width: '100%',
+    maxWidth: 480,
+    alignSelf: 'center',
+    paddingHorizontal: 16,
     paddingTop: 16,
-    paddingBottom: 30
+    paddingBottom: 30,
+    boxSizing: 'border-box'
   },
   backBtn: {
     width: 40,
@@ -299,6 +313,8 @@ const styles = StyleSheet.create({
     lineHeight: 18
   },
   formCard: {
+    width: '100%',
+    maxWidth: '100%',
     backgroundColor: colors.surface,
     borderRadius: 22,
     padding: 20,
@@ -309,7 +325,8 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.04,
     shadowRadius: 8,
     elevation: 2,
-    marginBottom: 20
+    marginBottom: 20,
+    boxSizing: 'border-box'
   },
   inputLabel: {
     fontSize: 13,
@@ -326,7 +343,9 @@ const styles = StyleSheet.create({
     backgroundColor: colors.surfaceSecondary,
     height: 52,
     paddingHorizontal: 12,
-    marginBottom: 16
+    marginBottom: 16,
+    width: '100%',
+    boxSizing: 'border-box'
   },
   countryCodeWrap: {
     flexDirection: 'row',
@@ -350,7 +369,9 @@ const styles = StyleSheet.create({
     color: colors.textPrimary,
     fontWeight: '600',
     paddingLeft: 12,
-    height: '100%'
+    height: '100%',
+    minWidth: 0,
+    outlineStyle: 'none'
   },
   otpHelperBanner: {
     backgroundColor: colors.primarySubtle,
@@ -394,11 +415,17 @@ const styles = StyleSheet.create({
   otpGrid: {
     flexDirection: 'row',
     justifyContent: 'space-between',
+    alignItems: 'center',
     gap: 8,
-    marginBottom: 16
+    marginBottom: 16,
+    width: '100%',
+    maxWidth: '100%',
+    boxSizing: 'border-box'
   },
   otpBox: {
     flex: 1,
+    minWidth: 0,
+    maxWidth: 64,
     height: 54,
     borderRadius: 14,
     backgroundColor: colors.surfaceSecondary,
@@ -407,7 +434,10 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     fontSize: 22,
     fontWeight: '800',
-    color: colors.primary
+    color: colors.primary,
+    boxSizing: 'border-box',
+    paddingHorizontal: 0,
+    outlineStyle: 'none'
   },
   otpBoxFilled: {
     borderColor: colors.primaryLight,

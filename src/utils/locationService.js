@@ -376,8 +376,12 @@ export const adaptWorkersToUserLocation = (workersList = [], userAddress, servic
   const coop = getHyperLocalCooperative(userAddress);
 
   return workersList.map((worker, index) => {
-    // Generate realistic proximity distances between 0.6 km and 1.8 km
-    const distanceKm = Number((0.6 + (index * 0.3) + (Math.random() * 0.2)).toFixed(1));
+    // Generate realistic proximity distances:
+    // Index 0, 1: Local artisans within 7 km (e.g. 1.2 km, 3.5 km) - Base charge only, ₹0 extra
+    // Index 2+: Outer sector / specialized artisans beyond 7 km (e.g. 9.2 km, 11.5 km) - +₹7 per increased km
+    const distanceKm = worker.distance_km && worker.distance_km > 6
+      ? Number(worker.distance_km)
+      : (index === 2 ? 9.2 : (index === 3 ? 11.5 : Number((1.2 + (index * 2.2) + (Math.random() * 0.3)).toFixed(1))));
     const etaMins = Math.max(6, Math.round(distanceKm * 7 + 2));
 
     // Dynamic Stand Location in the user's locality

@@ -473,6 +473,16 @@ export const Screen07_LiveTracking = ({ route, navigation }) => {
                         : `${t('electricScooter') || 'Service EV Scooter'} • ${worker?.vehicle_plate || 'DL 3S CD 8492'}`)}
                 </Text>
               </View>
+
+              <View style={styles.distanceInfoRow}>
+                <Ionicons name="navigate-circle" size={14} color={Number(worker?.distance_km || activeBooking?.distance_km || 0) > 7 ? '#0369A1' : colors.successDark} />
+                <Text style={[styles.distanceInfoText, Number(worker?.distance_km || activeBooking?.distance_km || 0) > 7 && { color: '#0369A1', fontWeight: '700' }]}>
+                  {worker?.distance_km || activeBooking?.distance_km || '1.2'} km dispatch
+                  {Number(worker?.distance_km || activeBooking?.distance_km || 0) > 7
+                    ? ` • +₹${Math.round((Number(worker?.distance_km || activeBooking?.distance_km || 0) - 7) * 7)} Travel Surcharge (>7 km @ ₹7/km)`
+                    : ' • Standard Local Zone (≤7 km: ₹0 extra travel)'}
+                </Text>
+              </View>
             </View>
           </View>
 
@@ -982,6 +992,22 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     marginTop: 4
+  },
+  distanceInfoRow: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    marginTop: 4,
+    backgroundColor: '#F0F9FF',
+    paddingHorizontal: 8,
+    paddingVertical: 3,
+    borderRadius: 6,
+    alignSelf: 'flex-start'
+  },
+  distanceInfoText: {
+    fontSize: 11,
+    color: colors.textSecondary,
+    marginLeft: 4,
+    fontWeight: '600'
   },
   vehicleText: {
     fontSize: 11,

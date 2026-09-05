@@ -68,7 +68,9 @@ export const WorkerTrustCard = ({
         <View style={styles.statCol}>
           <Ionicons name="location-outline" size={16} color={colors.textSecondary} />
           <Text style={styles.statVal}>{worker.distance_km} km</Text>
-          <Text style={styles.statLabel}>{t('distance') || 'Distance'}</Text>
+          <Text style={[styles.statLabel, Number(worker.distance_km) > 7 && { color: '#0369A1', fontWeight: '700' }]}>
+            {Number(worker.distance_km) > 7 ? `+₹${Math.round((Number(worker.distance_km) - 7) * 7)} Travel` : (t('distance') || 'Distance')}
+          </Text>
         </View>
         <View style={styles.statDivider} />
         <View style={styles.statCol}>
@@ -98,6 +100,23 @@ export const WorkerTrustCard = ({
               <Text style={styles.plateText}>{worker.vehicle_plate}</Text>
             </View>
           )}
+        </View>
+      )}
+
+      {/* Cooperative Distance Surcharge Transparency Banner */}
+      {Number(worker.distance_km) > 7 ? (
+        <View style={styles.distanceAlertRow}>
+          <Ionicons name="location" size={14} color="#0369A1" />
+          <Text style={styles.distanceAlertText}>
+            Dispatched from {worker.distance_km} km (Beyond 7 km standard radius: +₹{Math.round((Number(worker.distance_km) - 7) * 7)} distance charge at ₹7/km)
+          </Text>
+        </View>
+      ) : (
+        <View style={styles.distanceFreeRow}>
+          <Ionicons name="checkmark-circle" size={14} color={colors.successDark} />
+          <Text style={styles.distanceFreeText}>
+            Within 7 km local perimeter • Free travel dispatch (₹0 extra distance cost)
+          </Text>
         </View>
       )}
 
@@ -309,6 +328,44 @@ const styles = StyleSheet.create({
     fontSize: 10,
     fontWeight: '800',
     color: '#166534'
+  },
+  distanceAlertRow: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    backgroundColor: '#E0F2FE',
+    paddingHorizontal: 10,
+    paddingVertical: 7,
+    borderRadius: 10,
+    marginBottom: 10,
+    borderWidth: 1,
+    borderColor: '#BAE6FD'
+  },
+  distanceAlertText: {
+    fontSize: 11,
+    color: '#0369A1',
+    fontWeight: '700',
+    marginLeft: 6,
+    flex: 1,
+    lineHeight: 15
+  },
+  distanceFreeRow: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    backgroundColor: '#ECFDF5',
+    paddingHorizontal: 10,
+    paddingVertical: 7,
+    borderRadius: 10,
+    marginBottom: 10,
+    borderWidth: 1,
+    borderColor: '#A7F3D0'
+  },
+  distanceFreeText: {
+    fontSize: 11,
+    color: colors.successDark,
+    fontWeight: '700',
+    marginLeft: 6,
+    flex: 1,
+    lineHeight: 15
   },
   matchReasonBox: {
     flexDirection: 'row',

@@ -101,9 +101,9 @@ export const Screen09_JobInProgress = ({ route, navigation }) => {
       const current = calculateCurrentSeconds();
       setSecondsElapsed(current);
 
-      // Phase II: Automatic Overtime Detection (> 7200 seconds / 2 hours)
-      if (current >= 7200 && (!activeBooking?.overtime_charge || activeBooking.overtime_charge < 100)) {
-        applyOvertimeCharge(100);
+      // Phase II: Automatic Overtime Detection (> 7200 seconds / 2 hours: ₹20)
+      if (current >= 7200 && (!activeBooking?.overtime_charge || activeBooking.overtime_charge < 20)) {
+        applyOvertimeCharge(20);
       }
     }, 1000);
 
@@ -150,11 +150,11 @@ export const Screen09_JobInProgress = ({ route, navigation }) => {
   };
 
   const handleSimulateOvertime = () => {
-    applyOvertimeCharge(100);
+    applyOvertimeCharge(20);
     setSecondsElapsed(7205);
     Alert.alert(
       '⏱️ 2-Hour Overtime Activated',
-      'Work duration fast-forwarded past 2 hours (120 mins). Automatic overtime surcharge of +₹100 has been applied under Cooperative Fair-Wage Rules.'
+      'Work duration fast-forwarded past 2 hours (120 mins). Automatic overtime surcharge of +₹20 has been applied under Cooperative Fair-Wage Rules.'
     );
   };
 
@@ -269,7 +269,7 @@ export const Screen09_JobInProgress = ({ route, navigation }) => {
               <View style={styles.overtimeBanner}>
                 <Ionicons name="time" size={16} color="#92400E" />
                 <Text style={styles.overtimeBannerText}>
-                  ⏱️ Extended Service (&gt;2 hrs): +₹100 Overtime Charge Added (Cooperative Fair-Wage Clause)
+                  ⏱️ Extended Service (&gt;2 hrs): +₹20 Overtime Charge Added (Cooperative Fair-Wage Clause)
                 </Text>
               </View>
             )}
@@ -324,7 +324,7 @@ export const Screen09_JobInProgress = ({ route, navigation }) => {
             activeOpacity={0.7}
           >
             <Ionicons name="speedometer" size={14} color="#D97706" />
-            <Text style={styles.simulationBtnText}>Simulate +2 Hours (Test ₹100 Overtime)</Text>
+            <Text style={styles.simulationBtnText}>Simulate +2 Hours (Test ₹20 Overtime)</Text>
           </TouchableOpacity>
         </View>
 
@@ -383,6 +383,13 @@ export const Screen09_JobInProgress = ({ route, navigation }) => {
               <View style={[styles.basePill, { backgroundColor: '#EDE9FE' }]}>
                 <Text style={[styles.basePillText, { color: colors.cooperativePurple }]}>
                   +₹{helperDef?.amount || 200} {t('helper') || 'Helper'}
+                </Text>
+              </View>
+            )}
+            {activeBooking?.distance_charge > 0 && (
+              <View style={[styles.basePill, { backgroundColor: '#E0F2FE' }]}>
+                <Text style={[styles.basePillText, { color: '#0369A1', fontWeight: '800' }]}>
+                  +₹{activeBooking.distance_charge} Travel ({activeBooking.distance_km || worker?.distance_km}km)
                 </Text>
               </View>
             )}

@@ -41,6 +41,8 @@ export const Screen13_PaymentSuccess = ({ navigation }) => {
   const isHelperApproved = activeBooking?.second_worker || activeBooking?.helper_request?.status === 'approved';
   const helperCost = isHelperApproved ? Number(activeBooking?.helper_request?.amount || activeBooking?.service?.helper_request?.amount || 200) : 0;
   const overtimeCharge = Number(activeBooking?.overtime_charge || 0);
+  const distanceCharge = Number(activeBooking?.distance_charge || 0);
+  const distanceKm = Number(activeBooking?.distance_km ?? activeBooking?.worker?.distance_km ?? 0);
   const cancellationPenalty = Number(activeBooking?.cancellation_penalty_fee || 0);
   const discountApplied = Number(activeBooking?.discount_applied || 0);
 
@@ -126,6 +128,11 @@ export const Screen13_PaymentSuccess = ({ navigation }) => {
                 <tr>
                   <td>2nd Assistant Artisan (${activeBooking?.second_worker?.name || 'Helper'})</td>
                   <td style="text-align: right; font-weight: 600; color: #6D28D9;">+₹${helperCost}.00</td>
+                </tr>` : ''}
+                ${distanceCharge > 0 ? `
+                <tr>
+                  <td>Distance Travel Surcharge (&gt;7 km: ${distanceKm} km, ₹7/extra km)</td>
+                  <td style="text-align: right; font-weight: 600; color: #0369A1;">+₹${distanceCharge}.00</td>
                 </tr>` : ''}
                 ${overtimeCharge > 0 ? `
                 <tr>
