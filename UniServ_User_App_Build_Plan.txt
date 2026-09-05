@@ -1,0 +1,336 @@
+UNISERV USER APP — COMPLETE AI BUILD SPECIFICATION & INTEGRATION PLAN
+========================================================================
+App Name    : UniServ (Customer / User Application)
+Tagline     : "Your Trusted Cooperative Service Assurance Platform"
+Ecosystem   : Two-App Cooperative Architecture (Customer App + Partner/Worker App)
+Version     : 1.0.0 (Hackathon & Production Ready)
+
+---
+
+1. TECH STACK & CONFIGURATION
+-------------------------------
+Framework       : React Native (Expo SDK 57) — Universal Android, iOS & Web support
+Navigation      : React Navigation v7 (Native Stack + Bottom Tabs + Modals)
+State Management: React Context (UserContext + BookingContext)
+Data Persistence: AsyncStorage for session, language, and booking offline cache
+Styling System  : High-Trust Human-Crafted Design System (Deep Indigo, Emerald, Slate)
+Map Component   : Universal Animated Route & Live Vehicle Tracker (Web + Native ready)
+Media Picker    : Expo Image Picker for photo proof attachments
+Icons           : @expo/vector-icons (Ionicons, MaterialCommunityIcons)
+
+Folder Structure:
+/src
+  /theme
+    colors.js                 — High-trust color palette (Indigo #1E3A8A, Emerald #059669)
+  /data
+    languages.json            — 23 Indian regional languages (English, Hindi, Tamil, Telugu, etc.)
+    services.json             — 7 Service categories with descriptions, inclusions & safety notes
+    workers.json              — KYC verified worker profiles with cooperative affiliations
+    mockNotifications.js      — Cooperative warranty, wage distribution & audit notifications
+  /context
+    UserContext.js            — Auth state, profile, saved addresses, language selection
+    BookingContext.js         — 6-step lifecycle state machine, dual OTPs, extra work, payments
+  /components
+    Header.js                 — Top bar with address switcher, language button & SOS trigger
+    LanguageSelectorModal.js  — Searchable modal dropdown for Indian regional languages
+    BookingStatusStepper.js   — Vertical 6-stage lifecycle progress tracker
+    WorkerTrustCard.js        — Cooperative card with badges, ratings & match rationale
+    ServiceCard.js            — Interactive category card with base pricing
+    PaymentBreakdown.js       — 80/10/6/4 Fair Wage visual breakdown bar
+    SimulatedMap.js           — Animated vehicle route tracking with live ETA & speed controls
+    SevaSurakshaTable.js      — 9-scenario guarantee resolution matrix
+  /screens
+    Screen01_LanguageSelection.js
+    Screen02_OTPLogin.js
+    Screen03_Home.js
+    Screen04_ServiceDetail.js
+    Screen05_BookingForm.js
+    Screen06_WorkerMatch.js
+    Screen07_LiveTracking.js
+    Screen08_StartOTP.js
+    Screen09_JobInProgress.js
+    Screen10_ExtraWorkApproval.js
+    Screen11_CompletionOTP.js
+    Screen12_PaymentScreen.js
+    Screen13_PaymentSuccess.js
+    Screen14_RatingScreen.js
+    Screen15_NoWorkerAvailable.js
+    Screen16_ComplaintScreen.js
+    Screen17_SevaSurakshaScreen.js
+    MyBookingsScreen.js
+    NotificationsScreen.js
+    ProfileScreen.js
+  /navigation
+    AppNavigator.js           — Root Stack Navigator
+    BottomTabNavigator.js     — 4 Bottom Tabs (Home, My Bookings, Notifications, Profile)
+App.js
+
+---
+
+2. SHARED DATA CONTRACTS & STATE SCHEMAS (FOR LINKING WITH WORKER APP)
+-----------------------------------------------------------------------
+
+A. User Object Schema:
+{
+  "name": "Priya Sharma",
+  "phone": "9876543210",
+  "address": "B-12, Block B, Lajpat Nagar, New Delhi",
+  "landmark": "Near Metro Gate No. 2",
+  "city": "New Delhi",
+  "pincode": "110024",
+  "cooperativeTier": "Silver Member"
+}
+
+B. Worker Object Schema (workers.json):
+{
+  "id": "w1",
+  "name": "Rajan Kumar",
+  "photo": "https://images.unsplash.com/photo-1540569014015-19a7be504e3a?w=300&q=80",
+  "skill": "Plumber",
+  "experience": "5 years",
+  "rating": 4.8,
+  "rating_count": 213,
+  "jobs_completed": 213,
+  "distance_km": 1.2,
+  "eta_minutes": 12,
+  "phone": "+91 98765 43210",
+  "cooperative": "Delhi Labour Cooperative Society",
+  "kyc_verified": true,
+  "insurance": true,
+  "badge": "Top Rated Master Artisan",
+  "match_reason": "Matched because Rajan is 1.2 km away, certified by Delhi Labour Cooperative, has a 99% on-time rate, and carries active safety insurance."
+}
+
+C. Booking Lifecycle Contract (BookingContext):
+{
+  "booking_id": "BK84920",
+  "service": { "id": "s1", "name": "Plumber", "icon": "🔧", "start_price": 99 },
+  "address": "B-12, Block B, Lajpat Nagar, New Delhi",
+  "landmark": "Near Metro Gate No. 2",
+  "description": "Kitchen sink tap is leaking continuously from valve joint.",
+  "photo": "file://...",
+  "booking_type": "now" | "scheduled" | "emergency",
+  "scheduled_time": "Today, 05:30 PM",
+  "worker": { /* Worker Object */ },
+  "status": "Booking Confirmed" | "Worker Assigned" | "Worker is on the way" | "Worker Arrived" | "Work Started" | "Work Completed",
+  "statusIndex": 0..5,
+  "start_otp": "4829",
+  "completion_otp": "7294",
+  "base_amount": 350,
+  "extra_work": {
+    "requested": true,
+    "description": "Heavy-duty brass valve replacement & line flush",
+    "amount": 150,
+    "approved": true
+  },
+  "total_amount": 500,
+  "payment_method": "UPI" | "Card" | "Wallet" | "Cash",
+  "payment_status": "success",
+  "rating": 5,
+  "review_tags": ["On time", "Skilled & Clean", "Fair pricing"]
+}
+
+---
+
+3. COMPLETE SCREEN-BY-SCREEN SPECIFICATION
+-------------------------------------------
+
+SCREEN 01 — LANGUAGE SELECTION & ONBOARDING
+- Displays UniServ brand emblem, tagline, and cooperative mission statement.
+- Popular quick-select language cards (English, Hindi, Tamil, Telugu).
+- Searchable Indian Regional Languages Modal button opening real-time search across 23 Indian languages with native scripts.
+- Action: Saves language choice to AsyncStorage/Context $\rightarrow$ navigates to Screen 02 (OTP Login).
+
+SCREEN 02 — OTP LOGIN & VERIFICATION
+- Phone number input (+91 9876543210 pre-filled).
+- "Send Verification OTP" button $\rightarrow$ generates random 4-digit code.
+- Demo Helper Banner: Shows active simulated code with 1-tap "Auto-Fill Code" button for frictionless judge demonstrations.
+- 4 individual digit input boxes with auto-focus advance and backspace handling.
+- 30-second countdown resend timer.
+- Action: "Verify & Proceed" $\rightarrow$ saves session to Context $\rightarrow$ navigates to MainTabs (Home).
+
+SCREEN 03 — HOME SCREEN & DISCOVERY HUB
+- Universal Header: Current service address with tap-to-edit modal, language badge, and emergency SOS button.
+- Emergency SOS Priority Hero: 1-tap dispatch for urgent burst pipes / electrical short circuits.
+- Smart Search Bar: Instant keyword routing (e.g. "tap/leak/pipe" $\rightarrow$ Plumber, "socket/wire" $\rightarrow$ Electrician, "clean/wash" $\rightarrow$ Cleaner).
+- 2-Column Category Grid: Plumber (₹99), Electrician (₹99), Cleaner (₹199), Carpenter (₹149), Painter (₹299), Caregiver (₹249), Appliance Tech (₹149).
+- Seva Suraksha Banner & 80% Fair Wage guarantee card.
+- Action: Tapping category $\rightarrow$ Screen 04 (Service Detail); SOS $\rightarrow$ Screen 05 with bookingType = "emergency".
+
+SCREEN 04 — SERVICE DETAIL & RATE CARD
+- Hero card with service icon, rating (⭐ 4.8), duration (30–45 mins), and standard base price.
+- Detailed "What's Included" checklist (inspection, leak fixing, pressure test, 7-day warranty).
+- Numbered step-by-step repair process guide.
+- Safety & Protocol card (high-voltage isolation, water shut-off guidelines).
+- Cooperative Trust Assurance note.
+- Actions: "Schedule" $\rightarrow$ Screen 05 (scheduled); "Book Now" $\rightarrow$ Screen 05 (now).
+
+SCREEN 05 — BOOKING FORM & SLOT SCHEDULER
+- Selected service card summary with base price.
+- Booking type toggle: "Book Now (Immediate)" vs "Schedule Later".
+- Interactive time slot selector chips (Today 05:30 PM, Tomorrow 09:30 AM, etc.).
+- Pre-filled address and landmark text inputs.
+- Problem description multi-line input.
+- Issue Photo Upload with expo-image-picker and thumbnail preview.
+- Action: "Find a Verified Worker" $\rightarrow$ saves booking $\rightarrow$ Screen 06 (Worker Match).
+
+SCREEN 06 — WORKER MATCH & TRUST VERIFICATION
+- 2-second pulse radar animation simulating cooperative allocation algorithm.
+- Displays WorkerTrustCard:
+  * Artisan photo, name, skill, experience, rating (⭐ 4.8, 213 jobs).
+  * Proximity badge: 1.2 km away, 12 mins ETA.
+  * Cooperative Society: "Delhi Labour Cooperative Society".
+  * Verified credentials: "● KYC Verified", "● Insured", "● Top Rated".
+  * AI Matching Rationale explaining why matched.
+- Actions: "Confirm & Start Tracking" $\rightarrow$ Screen 07; "Show Next Available Worker" $\rightarrow$ cycles pool; "Simulate No Worker" $\rightarrow$ Screen 15.
+
+SCREEN 07 — LIVE TRACKING & SIMULATED MAP
+- Animated Route Map (SimulatedMap): Centered on customer address with animated moving vehicle marker over 15s.
+- Real-time ETA ticker (`12 mins` $\rightarrow$ `8 mins` $\rightarrow$ `Arrived!`) and distance countdown (`1.2 km` $\rightarrow$ `0.0 km`).
+- "Skip to Arrival" fast-forward button for instant demo speed.
+- Worker Contact Card with Masked Call modal and Quick Chat modal.
+- Vertical 6-stage lifecycle stepper.
+- Action: On arrival $\rightarrow$ shows "Artisan Has Arrived!" banner $\rightarrow$ "View Start OTP Handshake" $\rightarrow$ Screen 08.
+
+SCREEN 08 — START OTP MUTUAL HANDSHAKE
+- Prominent 4-digit OTP code display (e.g. `4829`) with digit cards.
+- Artisan identity verification card (Photo, Name, Cooperative Society).
+- Identity Warning Box: "Do not share OTP until the worker is physically present at your door."
+- Identity Mismatch action: "Wrong person arrived? Report Mismatch" $\rightarrow$ Screen 16.
+- Action: "Simulate: Worker Entered Start OTP" $\rightarrow$ sets status to "Work Started" $\rightarrow$ Screen 09.
+
+SCREEN 09 — JOB IN PROGRESS & DEMO CONTROLS
+- Live work header with pulsing amber dot and live active elapsed timer (`02:25` counting up).
+- Current service summary and running total (₹350).
+- If extra work was approved: shows Green Add-on banner (+₹150).
+- Worker summary card with active Seva Suraksha warranty seal.
+- Hackathon Demo Controls: "Worker Requests Extra Work" button $\rightarrow$ Screen 10.
+- Action: "Mark as Completed • Finish Job" $\rightarrow$ Screen 11 (Completion OTP).
+
+SCREEN 10 — EXTRA WORK APPROVAL & TRANSPARENCY
+- Alert banner: "Artisan Requesting Scope Addition".
+- Add-on item summary: Description ("Heavy-duty brass valve replacement"), Inspection photo proof, and additional cost (+₹150).
+- Revised pricing breakdown: Base (₹350) + Extra Work (₹150) = New Total (₹500).
+- Seva Suraksha Rule #5: "Artisans cannot charge extra without customer in-app approval."
+- Actions: "Approve & Continue (₹500)" $\rightarrow$ updates Context total to ₹500 $\rightarrow$ returns to Screen 09; "Decline Scope" $\rightarrow$ returns to Screen 09 at base rate.
+
+SCREEN 11 — COMPLETION OTP & QUALITY SIGN-OFF
+- Large 4-digit completion code (e.g. `7294`).
+- Interactive 3-point customer quality checklist (water flow tested, area cleaned, demonstration shown).
+- 7-Day Seva Suraksha Warranty seal activation note.
+- Action: "Simulate: Worker Entered Completion OTP" $\rightarrow$ sets status to "Work Completed" $\rightarrow$ Screen 12 (Payment).
+
+SCREEN 12 — PAYMENT SETTLEMENT & GATEWAY
+- Total payable amount card (₹500) with booking reference.
+- Payment method selector: Instant UPI (VPA input), Credit/Debit Card, Cooperative Wallet, Cash on Delivery.
+- Auto-verified UPI ID input field (`priya.sharma@okaxis`).
+- 80% Direct Worker Wage credit transparency preview.
+- Action: "Pay ₹500" $\rightarrow$ 1.2s simulated gateway loading $\rightarrow$ Screen 13 (Payment Success).
+
+SCREEN 13 — PAYMENT SUCCESS & FAIR WAGE BREAKDOWN
+- Large green checkmark animation with transaction receipt ID.
+- Booking summary card with active 7-day warranty badge (Valid till Sep 2026).
+- The Cooperative Fair Wage Breakdown Widget (PaymentBreakdown):
+  * Segmented colored progress bar.
+  * ₹400 (80%) — Worker Direct Wage (credited to cooperative bank account).
+  * ₹50 (10%) — Worker Welfare & Medical Fund.
+  * ₹30 (6%) — Cooperative Society Operations.
+  * ₹20 (4%) — Platform & Warranty Pool.
+- "View & Download Cooperative Invoice" button $\rightarrow$ opens formatted PDF invoice modal.
+- Action: "Rate Your Experience" $\rightarrow$ Screen 14 (Rating).
+
+SCREEN 14 — 5-STAR RATING & COOPERATIVE FEEDBACK
+- Artisan photo, name, and service summary.
+- 5-Star tap-to-rate selector with dynamic reaction labels ("Outstanding Service! 🌟").
+- Multi-select praise tags: "On time", "Skilled & Clean", "Professional", "Fair pricing", "Wore Safety Gear".
+- Written review text area.
+- Action: "Submit Review" $\rightarrow$ saves rating to booking $\rightarrow$ shows appreciation alert $\rightarrow$ returns to Home.
+
+SCREEN 15 — NO WORKER AVAILABLE (SEVA SURAKSHA FALLBACK)
+- Triggered when 0 workers are in 1.5 km radius.
+- Eliminates dead ends through 3 recovery option cards:
+  1. "Expand Search to 5.0 km" $\rightarrow$ finds worker in adjacent cooperative ward $\rightarrow$ Screen 06.
+  2. "Schedule Earliest Available Slot" $\rightarrow$ locks in guaranteed slot (Today 5:30 PM).
+  3. "Join Priority Dispatch Waitlist" $\rightarrow$ queues user as #2 with push notification trigger.
+- Alert to Local Ward Organiser notification.
+- Action: Direct link to Seva Suraksha Policy Hub.
+
+SCREEN 16 — COMPLAINT SCREEN & DISPUTE TRACKER
+- 6 Grievance categories (No-show, Late >30 mins, Poor Quality, Overcharging, Payment, Safety).
+- Multi-line explanation and photo evidence upload.
+- On submit $\rightarrow$ switches to live 5-step Grievance Redressal Tracker:
+  * [x] Complaint received (Ticket #CMP-8492)
+  * [x] Under cooperative review (Arbitration officer assigned)
+  * [ ] Worker/customer contacted
+  * [ ] Resolution offered (Free rework or 100% refund)
+  * [ ] Ticket closed
+- 7-Day free rework warranty assurance banner.
+
+SCREEN 17 — SEVA SURAKSHA GUARANTEE HUB
+- Full interactive 9-problem lookup matrix (SevaSurakshaTable):
+  1. No worker available $\rightarrow$ Network auto-expand & waitlist
+  2. Worker cancels $\rightarrow$ Instant automatic priority replacement
+  3. Worker is late $\rightarrow$ Live revised ETA + switch option
+  4. Wrong person arrives $\rightarrow$ OTP shield & mismatch report
+  5. Work cost increases $\rightarrow$ Mandatory in-app customer approval
+  6. Payment fails $\rightarrow$ Zero-lock gateway retry / cash fallback
+  7. Poor work quality $\rightarrow$ 7-day free rework warranty
+  8. Safety concern $\rightarrow$ 24/7 Field supervisor arbitration
+  9. Worker no-show $\rightarrow$ Priority reassignment + worker audit
+- 24/7 Cooperative Hotline escalation card.
+- "I Have An Issue Right Now" button $\rightarrow$ Screen 16.
+
+BOTTOM TAB SCREENS:
+- MyBookingsScreen: Live active service card with 1-tap "Resume Active Tracking" + past history with ratings & invoices.
+- NotificationsScreen: Pre-seeded cooperative safety audits, fair wage deposits, and warranty alerts.
+- ProfileScreen: User details, Silver Member badge, Language switcher modal trigger, saved address, and sign out.
+
+---
+
+4. REUSABLE UI COMPONENTS SUMMARY
+-----------------------------------
+1. `LanguageSelectorModal` (props: visible, onClose, currentLanguage, onSelectLanguage)
+2. `Header` (props: onLocationPress, onEmergencyPress, onLanguagePress, showEmergency, title, showBack, onBack)
+3. `BookingStatusStepper` (props: currentStep [0..5], compact [boolean])
+4. `WorkerTrustCard` (props: worker, showMatchReason, showActions, onConfirm, onFindAnother, confirmLabel, findAnotherLabel)
+5. `ServiceCard` (props: service, onPress)
+6. `PaymentBreakdown` (props: totalAmount)
+7. `SimulatedMap` (props: worker, userAddress, onArrival, durationMs, autoStart)
+8. `SevaSurakshaTable` (props: onReportIssue)
+
+---
+
+5. HOW TO RUN AS WEB APP (DESKTOP / LAPTOP)
+--------------------------------------------
+In terminal under `c:\My_Files\SIH\UniServ`:
+
+```powershell
+# Run directly in web browser
+npm.cmd run web
+```
+App opens at: http://localhost:8081
+
+Pro Tip for Presentation:
+- Open Chrome DevTools (`F12` or `Ctrl + Shift + I`)
+- Toggle Device Toolbar (`Ctrl + Shift + M`)
+- Select device: **iPhone 14 Pro** or set size to **`390 x 844`** for an exact native mobile experience.
+
+---
+
+6. THE 3-MINUTE HACKATHON JUDGE DEMO FLOW
+------------------------------------------
+1. Language Selection: Open app $\rightarrow$ search "Tamil" or "Hindi" in regional modal $\rightarrow$ Continue.
+2. OTP Login: Tap "Send OTP" $\rightarrow$ tap "Auto-Fill Code" $\rightarrow$ Verify & Proceed.
+3. Home: Show location header & Emergency SOS $\rightarrow$ select "Plumber".
+4. Service Detail: Show inclusions & cooperative warranty $\rightarrow$ tap "Book Now • ₹99".
+5. Booking Form: Show pre-filled address & issue description $\rightarrow$ tap "Find a Verified Worker".
+6. Worker Match: 2-second pulse reveals Rajan Kumar (Top Rated, KYC Verified) $\rightarrow$ tap "Confirm & Start Tracking".
+7. Live Tracking: Watch vehicle marker move across map $\rightarrow$ tap "Skip to Arrival" $\rightarrow$ tap "View Start OTP Handshake".
+8. Start OTP: Show 4-digit code $\rightarrow$ tap "Simulate: Worker Entered Start OTP".
+9. Job In Progress: Show active timer $\rightarrow$ tap "Worker Requests Extra Work" (+₹150 valve replacement) $\rightarrow$ tap "Approve & Continue" (total updates to ₹500) $\rightarrow$ tap "Mark as Completed".
+10. Completion OTP: Show completion code & checklist $\rightarrow$ tap "Simulate: Worker Entered Completion OTP".
+11. Payment: Select UPI $\rightarrow$ tap "Pay ₹500 via UPI".
+12. Pitch Climax (Fair Breakdown): Point judges to 80% (₹400) worker wage + 10% welfare fund + 6% ops + 4% platform split $\rightarrow$ show downloadable PDF invoice $\rightarrow$ submit 5-star rating.
+13. Edge-Case Safety: Tap Emergency SOS or Seva Suraksha banner $\rightarrow$ show 3 recovery paths for no worker available & 9 guarantee policies.
+
+Total demo duration: ~3 minutes.

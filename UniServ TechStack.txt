@@ -1,0 +1,57 @@
+UniServ TechStack
+
+1. Frontend & Core Framework
+React Native (Expo SDK 57) — Cross-platform universal framework powering native Android, iOS, and Web from a single codebase.
+React 19 & React DOM — Modern component lifecycle, hooks, and responsive rendering engine.
+Metro Runtime & Webpack Bundler — Optimized asset bundling and fast-refresh build system.
+
+2. Architecture & Navigation
+React Navigation v7:
+Native Stack Navigator — Fluid screen transitions, native gestures, and modal presentations.
+Bottom Tabs Navigator — Persistent 4-hub navigation (Home, Bookings, Notifications, Profile).
+Two-App Micro-Frontend Architecture — Decoupled customer client designed for zero-friction integration with the companion Worker/Partner app.
+
+3. State Management & Persistence
+React Context API (UserContext & BookingContext) — Centralized reactive state machine handling user identity, 6-stage lifecycle, and dual-OTP verification.
+AsyncStorage (@react-native-async-storage/async-storage) — Encrypted local storage for offline session caching, address profiles, and language preferences.
+
+4. Multi-Language Localization (i18n Engine)
+Custom Dynamic Translation Engine (translations.js + useUser.t()):
+Real-time language switching without app reloads.
+Native script support across 9 major Indian languages: English, Hindi, Tamil, Telugu, Kannada, Malayalam, Bengali, Marathi, Gujarati.
+Searchable modal directory indexing all 23 scheduled Indian regional languages.
+
+5. Real-Time Tracking & Simulation Engine
+Animated Vector Route Engine (SimulatedMap.js):
+Real-time GPS coordinate interpolation and live vehicle marker rotation.
+Turn-by-turn navigation ticker, live speed counter, and ETA countdown.
+Zero external API dependency (cross-platform compatible across Web, iOS & Android).
+
+6. UI / UX Design System & Components
+Human-Crafted High-Trust Theme (colors.js) — Custom palette featuring Trust Indigo (#1E3A8A), Verified Emerald (#059669), and Emergency Vermilion (#DC2626).
+Vector Icons (@expo/vector-icons) — Ionicons & Material Community Icons for standard mobile visual cues.
+Component System:
+Swiggy/Zomato-inspired Address Management & Tagging (Home / Work / Other).
+Rapido/Uber-inspired Driver Card with masked calling & live status ticker.
+Fair Wage Breakdown Widget — 80/10/6/4 transparent wage distribution visualizer.
+
+7. Device APIs & Multimedia
+Expo Image Picker (expo-image-picker) — Native camera and media gallery access for attaching problem proof and inspection photos.
+Safe Area Context (react-native-safe-area-context) — Edge-to-edge layout adaptation for notches, dynamic islands, and status bars.
+
+8. Security & Handshake Protocols
+Dual OTP Verification Handshake:
+Start OTP — Prevents unauthorized job starts and identity mismatches.
+Completion OTP — Customer quality sign-off required before invoice payment unlock.
+In-App Scope Approval Shield — Cryptographic state locking for extra work or spare part charges.
+
+  Summary
+
+• Framework       : React Native (Expo SDK 57) + React 19 (Android / iOS / Web)
+• Navigation      : React Navigation v7 (Native Stack + Bottom Tabs)
+• State & Cache   : React Context API + AsyncStorage Local Persistence
+• Localization    : Dynamic i18n Engine (9 Indian Languages + 23 Searchable Dialects)
+• Geolocation     : Custom Animated GPS Route & Turn-by-Turn Tracking Engine
+• UI / Theme      : High-Trust Human Design System (Indigo / Emerald / Slate)
+• Media & Native  : Expo Image Picker + React Native Safe Area Context
+• Security & Auth : Dual Mutual OTP Handshake + Masked Calling Architecture

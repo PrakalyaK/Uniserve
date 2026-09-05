@@ -1,0 +1,187 @@
+UNISERVE WORKER APP — TECH STACK
+=================================
+Last updated: 2026-08-30
+
+
+WHAT KIND OF APP IS THIS?
+--------------------------
+A cross-platform mobile app built with React Native and Expo.
+It runs on Android, iOS, and Web from a single codebase.
+There is no dedicated backend inside this folder — data is
+managed through local state, context, and AsyncStorage for now.
+
+
+LANGUAGE
+--------
+JavaScript (ES6+)
+Transpiled by Babel so it works on older Android/iOS versions.
+
+
+CORE FRAMEWORK
+--------------
+React Native 0.74.1
+  - The main framework for building mobile UI with JavaScript.
+  - Renders native Android and iOS components, not a web view.
+
+React 18.2.0
+  - The underlying UI library React Native is built on.
+  - Handles component rendering and state updates.
+
+Expo 51.0.0
+  - A layer on top of React Native that simplifies builds.
+  - Provides ready-made APIs for camera, location, image picker, etc.
+  - Lets you run the app instantly with "expo start" without Xcode or Android Studio setup.
+
+
+NAVIGATION (Moving between screens)
+------------------------------------
+@react-navigation/native 6.1.0
+  - The core navigation library. Required by all other nav packages.
+
+@react-navigation/stack 6.3.0
+  - Handles forward/back screen transitions (e.g., Home → Job Detail → OTP screen).
+
+@react-navigation/bottom-tabs 6.5.0
+  - Provides the bottom tab bar (e.g., Home, Jobs, Earnings, Profile tabs).
+
+
+MAPS AND LOCATION
+-----------------
+react-native-maps 1.14.0
+  - Embeds a real map (Google Maps on Android, Apple Maps on iOS) inside the app.
+  - Used for: worker navigation to customer, live location display.
+
+expo-location 57.0.14
+  - Accesses the phone's GPS.
+  - Used for: broadcasting worker's live position, calculating distance to customer.
+
+leaflet 1.9.4
+  - A web-based map library.
+  - Only used when the app runs in a browser (expo-web target).
+  - Not used on the mobile app itself.
+
+
+LOCAL STORAGE
+-------------
+@react-native-async-storage/async-storage 1.23.1
+  - Saves data on the device even after the app is closed.
+  - Used for: storing login tokens, caching active job details for offline use,
+    saving language preference.
+
+
+EVENT SYSTEM
+------------
+eventemitter3 5.0.1
+  - Lets different parts of the app communicate without being directly connected.
+  - Used for: simulating real-time events (new job request arriving, OTP confirmed)
+    while there is no live backend connected yet.
+
+
+MEDIA AND CAMERA
+----------------
+expo-image-picker 15.0.7
+  - Opens the phone's camera or photo gallery from inside the app.
+  - Used for: KYC photo upload (identity verification), uploading job evidence photos
+    when requesting extra work.
+
+
+UI HELPERS
+----------
+react-native-gesture-handler 2.16.1
+  - Enables smooth swipe, tap, and drag gestures.
+  - Required by React Navigation to work properly.
+
+react-native-safe-area-context 4.10.1
+  - Makes the app aware of the phone's notch, home bar, and status bar.
+  - Prevents content from being hidden behind device UI elements.
+
+react-native-screens 3.31.0
+  - Uses native OS screen containers instead of JavaScript ones.
+  - Makes screen transitions faster and reduces memory use.
+
+
+WEB SUPPORT (expo-web target)
+------------------------------
+react-native-web 0.19.10
+  - Translates React Native components into HTML so the app can run in a browser.
+
+react-dom 18.2.0
+  - React's browser rendering engine, needed alongside react-native-web.
+
+@expo/webpack-config 19.0.1
+  - Configures Webpack to bundle the app for web deployment.
+
+
+BUILD TOOLS
+-----------
+Metro 0.80.9
+  - The JavaScript bundler that packages all app files for Android and iOS.
+  - Runs in the background when you do "expo start".
+
+metro-core and metro-runtime 0.80.9
+  - Internal parts of Metro. Listed as direct dependencies to fix version conflicts.
+
+@babel/core 7.24.0
+  - Converts modern JavaScript into a version that React Native can run.
+  - Runs at build time only, not at runtime.
+
+
+HOW STATE IS MANAGED
+---------------------
+No Redux or Zustand is installed.
+State is managed using:
+  - React's built-in useState and useReducer hooks (local component state)
+  - React Context API (global state shared across screens, e.g., auth state, job state)
+  - AsyncStorage (persisted state that survives app restarts)
+  - eventemitter3 (cross-module event signalling)
+
+Context files live in the /context folder.
+
+
+HOW DATA IS STRUCTURED (Current)
+----------------------------------
+Mock/static data lives in the /data folder.
+There is no live API or database connected yet.
+Real-time features (job requests, OTP, GPS sharing) are simulated locally
+using eventemitter3 and Context until a backend is integrated.
+
+
+FOLDER STRUCTURE OVERVIEW
+--------------------------
+worker-app/
+  App.js              Entry point. Sets up navigation and context providers.
+  app.json            Expo configuration (app name, icon, splash screen, permissions).
+  babel.config.js     Babel transpiler config.
+  components/         Reusable UI components (buttons, cards, modals, etc.)
+  context/            React Context providers (auth, jobs, location, etc.)
+  data/               Mock/static data files used during development.
+  navigation/         Navigation stack and tab definitions.
+  screens/            Individual app screens (Home, JobRequest, Earnings, Profile, etc.)
+  node_modules/       Installed packages (do not edit manually).
+  package.json        Dependency list and npm scripts.
+
+
+SCRIPTS (how to run the app)
+-----------------------------
+npm start          →  Start the Expo dev server (scan QR code to open on phone)
+npm run android    →  Launch on an Android emulator or connected device
+npm run ios        →  Launch on an iOS simulator (Mac only)
+
+
+PERMISSIONS REQUIRED ON DEVICE
+--------------------------------
+Location (fine)     →  For GPS tracking and navigation
+Camera              →  For KYC photo and job evidence upload
+Photo library       →  For uploading existing photos
+Push notifications  →  For job request alerts and OTP prompts
+
+
+WHAT IS NOT YET IN THE APP
+---------------------------
+- No backend / API integration (Firebase, REST, GraphQL, etc.)
+- No real-time socket connection (Socket.io, Pusher, etc.)
+- No payment gateway
+- No push notification service (FCM / APNs)
+- No SMS OTP service (Twilio, MSG91, etc.)
+- No authentication service (Firebase Auth, custom JWT, etc.)
+These will be added in the next phase.

@@ -1,0 +1,622 @@
+UNISERVE USER APP — SIMPLE AI BUILD PLAN
+==========================================
+This plan is written so an AI coding tool can read it and build the app
+screen by screen. Every section tells the AI: what to build, what data
+to use, and what to connect to the next screen.
+
+---
+
+TECH STACK (keep it simple)
+-----------------------------
+Framework   : React Native (Expo) — works on Android and iOS from one codebase
+Navigation  : React Navigation (Stack + Bottom Tabs)
+State       : React Context or Zustand (no Redux needed)
+Styling     : NativeWind (Tailwind for React Native) or StyleSheet
+Backend     : Mock data (JSON files) for hackathon — no real server needed
+Maps        : react-native-maps with a mock moving marker
+OTP         : Simulated — generate a random 4-digit number in the app itself
+Payment     : Simulated — a "Pay Now" button that shows a success screen
+Storage     : AsyncStorage for offline cache
+
+Folder structure:
+/app
+  /screens       — one file per screen
+  /components    — reusable UI pieces
+  /data          — mock JSON files
+  /context       — global state (user, booking, worker)
+  /navigation    — stack and tab setup
+  App.js
+
+---
+
+MOCK DATA FILES TO CREATE FIRST
+---------------------------------
+Create these JSON files in /data before building screens.
+The AI should import them wherever real API calls would go.
+
+workers.json
+[
+  {
+    "id": "w1",
+    "name": "Rajan Kumar",
+    "photo": "https://i.pravatar.cc/150?img=3",
+    "skill": "Plumber",
+    "experience": "5 years",
+    "rating": 4.7,
+    "jobs_completed": 213,
+    "distance_km": 1.2,
+    "eta_minutes": 12,
+    "cooperative": "Delhi Labour Cooperative Society",
+    "kyc_verified": true,
+    "insurance": true,
+    "badge": "Top Rated"
+  },
+  {
+    "id": "w2",
+    "name": "Sunita Devi",
+    "skill": "Cleaner",
+    "experience": "3 years",
+    "rating": 4.5,
+    "jobs_completed": 98,
+    "distance_km": 0.8,
+    "eta_minutes": 8,
+    "cooperative": "Delhi Labour Cooperative Society",
+    "kyc_verified": true,
+    "insurance": true
+  }
+]
+
+services.json
+[
+  { "id": "s1", "name": "Plumber", "icon": "🔧", "start_price": 99 },
+  { "id": "s2", "name": "Electrician", "icon": "⚡", "start_price": 99 },
+  { "id": "s3", "name": "Cleaner", "icon": "🧹", "start_price": 199 },
+  { "id": "s4", "name": "Carpenter", "icon": "🪚", "start_price": 149 },
+  { "id": "s5", "name": "Painter", "icon": "🖌️", "start_price": 299 },
+  { "id": "s6", "name": "Caregiver", "icon": "🤝", "start_price": 249 },
+  { "id": "s7", "name": "Appliance Technician", "icon": "🔌", "start_price": 149 }
+]
+
+booking_statuses = [
+  "Booking Confirmed",
+  "Worker Assigned",
+  "Worker is on the way",
+  "Worker Arrived",
+  "Work Started",
+  "Work Completed"
+]
+
+---
+
+SCREEN LIST (build in this order)
+-----------------------------------
+Screen 01 — Language Selection
+Screen 02 — OTP Login
+Screen 03 — Home Screen
+Screen 04 — Service Detail
+Screen 05 — Booking Form
+Screen 06 — Worker Match
+Screen 07 — Live Tracking
+Screen 08 — Start OTP
+Screen 09 — Job in Progress
+Screen 10 — Extra Work Approval
+Screen 11 — Completion OTP
+Screen 12 — Payment Screen
+Screen 13 — Payment Success + Fair Breakdown
+Screen 14 — Rating Screen
+Screen 15 — No Worker Available
+Screen 16 — Complaint Screen
+Screen 17 — Seva Suraksha Screen
+
+---
+
+SCREEN 01 — LANGUAGE SELECTION
+--------------------------------
+What to show:
+  - App logo and name "UniServe"
+  - Tagline: "Your trusted cooperative service platform"
+  - Three buttons: English | हिंदी | Regional
+  - "Continue" button
+
+What to do:
+  - Save selected language to AsyncStorage and Context
+  - Navigate to Screen 02 (OTP Login)
+
+Simple version: just save the choice and move on.
+No need to actually translate the whole app for hackathon —
+just store the value and show it in Settings later.
+
+---
+
+SCREEN 02 — OTP LOGIN
+-----------------------
+What to show:
+  - Phone number input field
+  - "Send OTP" button
+  - After sending: 4-digit OTP input boxes
+  - "Verify OTP" button
+  - "Resend OTP" link (active after 30 seconds)
+
+What to do:
+  - Generate a random 4-digit number when "Send OTP" is tapped
+  - Print it in console (or show it in a toast for demo)
+  - If entered OTP matches → save user to Context → go to Screen 03
+  - If wrong OTP → show "Incorrect OTP, try again"
+
+Mock user object to save:
+{
+  "name": "Priya Sharma",
+  "phone": "9876543210",
+  "address": "B-12, Lajpat Nagar, New Delhi"
+}
+
+---
+
+SCREEN 03 — HOME SCREEN
+-------------------------
+What to show:
+  - Top bar: location display + edit icon
+  - Emergency Help button (red, prominent)
+  - Search bar: "What do you need help with?"
+  - Service category grid (2 or 3 columns) — use services.json
+  - Each card: icon + name + starting price
+
+What to do:
+  - Tapping a service card → go to Screen 04 (Service Detail)
+    Pass the selected service object as route param
+  - Tapping Emergency Help → go to Screen 05 (Booking Form)
+    with booking_type = "emergency" pre-filled
+  - Search bar: keyword matching
+    "tap leaking" → Plumber
+    "socket" → Electrician
+    "cleaning" → Cleaner
+
+Bottom tab bar:
+  Home | My Bookings | Notifications | Profile
+
+---
+
+SCREEN 04 — SERVICE DETAIL
+----------------------------
+What to show:
+  - Service name and icon
+  - Description (2-3 lines)
+  - What is included (bullet list)
+  - Estimated duration
+  - Starting price
+  - Sample steps (numbered list)
+  - Safety note (if electrician or plumber)
+  - "Cooperative trust" note:
+    "Workers verified through Labour Cooperative Societies"
+  - "Book Now" button
+  - "Schedule for Later" button
+
+What to do:
+  - "Book Now" → go to Screen 05 (Booking Form) with booking_type = "now"
+  - "Schedule for Later" → go to Screen 05 with booking_type = "scheduled"
+
+Use hardcoded detail content per service for hackathon.
+
+---
+
+SCREEN 05 — BOOKING FORM
+--------------------------
+What to show:
+  - Selected service name at top
+  - Address field (pre-filled from user profile, editable)
+  - Landmark field (text input)
+  - Issue description (multi-line text input)
+  - Photo upload button (use expo-image-picker, show thumbnail)
+  - If booking_type = "scheduled": date + time picker
+  - If booking_type = "emergency": red banner "Emergency — priority matching"
+  - "Find a Worker" button
+
+What to do:
+  - Save booking object to Context:
+    {
+      service: selected service,
+      address: entered address,
+      landmark: entered landmark,
+      description: entered text,
+      photo: picked image uri,
+      booking_type: "now" / "scheduled" / "emergency",
+      scheduled_time: date/time if scheduled
+    }
+  - Navigate to Screen 06 (Worker Match)
+
+---
+
+SCREEN 06 — WORKER MATCH
+--------------------------
+What to show:
+  - "Finding a worker near you..." animation (spinner or pulse)
+  - After 2-second delay: show Worker Trust Card
+  - Worker Trust Card contains:
+      Worker photo (circle)
+      Name
+      Skill
+      Rating (stars)
+      Jobs completed
+      Distance and ETA
+      Cooperative name
+      "KYC Verified" badge
+      "Insured" badge
+      Match reason text:
+      "Matched because the worker is nearby, verified for [skill],
+       currently available, and has a strong service record."
+  - "Confirm Booking" button
+  - "Find Another Worker" button
+
+What to do:
+  - Pick a worker from workers.json that matches the selected skill
+  - If no match → go to Screen 15 (No Worker Available)
+  - "Confirm Booking" → save worker to Context →
+    generate booking ID (e.g. "BK" + random 5 digits) →
+    go to Screen 07 (Live Tracking)
+  - "Find Another Worker" → show next worker from list
+
+---
+
+SCREEN 07 — LIVE TRACKING
+---------------------------
+What to show:
+  - Map (react-native-maps) centered on user's address
+  - Worker marker moving toward user marker (animate over 15 seconds)
+  - Bottom sheet with:
+      Worker name and photo
+      ETA countdown ("Arriving in 10 min")
+      "Call Worker" button (masked — just show a dummy call screen)
+      "Chat" button (dummy)
+  - Booking status timeline (vertical stepper):
+      ✅ Booking Confirmed
+      ✅ Worker Assigned
+      ▶ Worker is on the way  ← current step
+         Worker Arrived
+         Work Started
+         Work Completed
+
+What to do:
+  - Animate worker marker from 1.5 km away to user location over 15 seconds
+  - After animation ends: update status to "Worker Arrived"
+  - Show "Worker has arrived!" banner
+  - Show "Enter Start OTP" button → go to Screen 08
+
+For hackathon: use a fixed route animation. No real GPS needed.
+
+---
+
+SCREEN 08 — START OTP
+-----------------------
+What to show:
+  - Instruction: "Share this OTP with the worker to begin the service"
+  - Large 4-digit OTP displayed (generate random number)
+  - Worker name below OTP
+  - "Worker entered OTP" button (simulates worker entering it)
+
+What to do:
+  - Tapping "Worker entered OTP" → update status to "Work Started"
+  - Navigate to Screen 09 (Job in Progress)
+
+Why: this simulates the start-OTP handshake between both apps.
+
+---
+
+SCREEN 09 — JOB IN PROGRESS
+-----------------------------
+What to show:
+  - "Work in progress" banner
+  - Worker name, skill, photo
+  - Service being done
+  - Booking status timeline with "Work Started" highlighted
+  - "Worker requesting extra work" button (to demo Screen 10)
+  - "Mark as Completed" button (worker side would do this —
+    for demo, let the customer trigger it)
+
+What to do:
+  - "Worker requesting extra work" → go to Screen 10
+  - "Mark as Completed" → go to Screen 11 (Completion OTP)
+
+---
+
+SCREEN 10 — EXTRA WORK APPROVAL
+---------------------------------
+What to show:
+  - Title: "Worker has requested additional work"
+  - Original job summary
+  - Extra item added: description + additional cost + photo (mock image)
+  - New total breakdown
+  - "Approve and Continue" button
+  - "Decline" button
+
+What to do:
+  - "Approve and Continue" → update booking total in Context →
+    go back to Screen 09
+  - "Decline" → go back to Screen 09 without extra charge
+
+---
+
+SCREEN 11 — COMPLETION OTP
+----------------------------
+What to show:
+  - Instruction: "Share this OTP to confirm the work is complete"
+  - Large 4-digit OTP (new random number)
+  - "Worker entered OTP" button
+
+What to do:
+  - Tapping "Worker entered OTP" → update status to "Work Completed"
+  - Navigate to Screen 12 (Payment)
+
+---
+
+SCREEN 12 — PAYMENT SCREEN
+----------------------------
+What to show:
+  - Job summary at top (service, worker, booking ID)
+  - Total amount
+  - Payment method selector:
+      UPI | Card | Wallet | Cash
+  - If UPI selected: show a mock UPI ID input and "Pay" button
+  - If Cash selected: show "Confirm Cash Payment" button
+
+What to do:
+  - Any payment method → 1-second loading → go to Screen 13
+  - No real payment gateway needed for hackathon
+
+---
+
+SCREEN 13 — PAYMENT SUCCESS + FAIR BREAKDOWN
+----------------------------------------------
+What to show:
+  - Large green checkmark
+  - "Payment Successful — ₹500"
+  - Booking ID
+  - "Where did your money go?" section:
+      ₹400 — Worker wage         (80%)
+      ₹50  — Worker welfare fund (10%)
+      ₹30  — Cooperative ops     (6%)
+      ₹20  — Platform            (4%)
+  - Visual bar showing the breakdown (colored segments)
+  - "Download Invoice" button (show dummy invoice screen)
+  - "Rate your experience" button → go to Screen 14
+
+Why this matters for judges: this proves cooperative-first model.
+
+---
+
+SCREEN 14 — RATING SCREEN
+---------------------------
+What to show:
+  - Worker name and photo
+  - 5 star tap-to-rate row
+  - Quick tag chips (tap to select):
+      On time | Skilled | Professional | Respectful | Fair pricing
+  - Text input: "Write a review (optional)"
+  - "Submit Review" button
+
+What to do:
+  - Save rating and tags to booking in Context
+  - Show "Thank you for your feedback!" toast
+  - Navigate to Home Screen
+
+---
+
+SCREEN 15 — NO WORKER AVAILABLE
+----------------------------------
+What to show:
+  - "No worker found nearby right now"
+  - Three recovery options as cards:
+    1. "Expand search area" button
+       → simulate finding a worker 5 km away → go to Screen 06
+    2. "Schedule for earliest available slot"
+       → show "Next available: Today at 5:30 PM" → let user confirm
+    3. "Join priority waitlist"
+       → show "You're #2 in queue. We'll notify you."
+  - Note: "Cooperative organiser has been alerted for emergency requests"
+
+What to do:
+  - Each option leads to a logical next step
+  - Do not show a dead end. Always give at least one path forward.
+
+This screen is key for the Seva Suraksha demo.
+
+---
+
+SCREEN 16 — COMPLAINT SCREEN
+------------------------------
+What to show:
+  - Title: "Report an issue"
+  - Category selector (radio buttons):
+      Worker did not arrive
+      Worker was late
+      Poor service quality
+      Overcharging
+      Payment issue
+      Safety concern
+  - Text description field
+  - Photo/video upload option
+  - "Submit Complaint" button
+
+What to do:
+  - On submit: save complaint to Context with status "Received"
+  - Show complaint status tracker (5 steps):
+      ✅ Complaint received
+         Under cooperative review
+         Worker/customer contacted
+         Resolution offered
+         Closed
+
+---
+
+SCREEN 17 — SEVA SURAKSHA SCREEN
+----------------------------------
+What to show:
+  - Title: "Seva Suraksha Guarantee"
+  - Subtitle: "We handle every problem — you are never stuck."
+  - Table/card list of 9 scenarios:
+
+  Problem                     | What UniServe does
+  No worker available         | Searches partner cooperative / waitlist
+  Worker cancels              | Automatic replacement search
+  Worker is late              | Revised ETA + replacement option
+  Wrong person arrives        | Do not share OTP — report identity mismatch
+  Work cost increases         | Your approval required before extra work begins
+  Payment fails               | Retry / support ticket raised
+  Poor work quality           | 7-day warranty revisit available
+  Safety concern              | Cooperative organiser support activated
+  Worker no-show              | Priority reassignment + organiser escalated
+
+  - "I have an issue right now" button → go to Screen 16 (Complaint)
+  - "Go back home" button
+
+This screen should be accessible from:
+  - Home screen footer link
+  - Booking status screen
+  - After a complaint is filed
+
+---
+
+GLOBAL COMPONENTS TO BUILD
+-----------------------------
+These are reusable pieces used across multiple screens.
+
+BookingStatusStepper
+  Props: currentStep (0–5)
+  Shows vertical list of 6 status steps
+  Completed steps: green checkmark
+  Current step: blue with pulse
+  Future steps: grey
+
+WorkerTrustCard
+  Props: worker object
+  Shows photo, name, skill, rating, distance, ETA, cooperative, badges
+
+ServiceCard
+  Props: service object
+  Shows icon, name, starting price
+  Tappable → navigates to Screen 04
+
+PaymentBreakdown
+  Props: total amount
+  Calculates and shows worker / welfare / cooperative / platform split
+  Shows colored bar visualization
+
+SevaSurakshaTable
+  Static component
+  Shows 9 problem-response rows
+
+---
+
+CONTEXT / STATE TO MAINTAIN GLOBALLY
+---------------------------------------
+UserContext:
+  name, phone, address, language, isLoggedIn
+
+BookingContext:
+  service, address, landmark, description, photo,
+  booking_type, scheduled_time,
+  worker (assigned), booking_id,
+  status (0–5 index),
+  total_amount, payment_method,
+  extra_work (approved or not),
+  start_otp, completion_otp,
+  rating, complaint
+
+---
+
+NAVIGATION STRUCTURE
+----------------------
+Stack Navigator (root):
+  Screen 01 Language Selection
+  Screen 02 OTP Login
+  → after login → Main App (Tab Navigator)
+
+Tab Navigator (bottom tabs):
+  Tab 1: Home Stack
+    Screen 03 Home
+    Screen 04 Service Detail
+    Screen 05 Booking Form
+    Screen 06 Worker Match
+    Screen 07 Live Tracking
+    Screen 08 Start OTP
+    Screen 09 Job in Progress
+    Screen 10 Extra Work Approval
+    Screen 11 Completion OTP
+    Screen 12 Payment
+    Screen 13 Payment Success
+    Screen 14 Rating
+    Screen 15 No Worker Available
+  Tab 2: My Bookings
+    List of past bookings from Context
+  Tab 3: Notifications
+    Static list of mock notifications
+  Tab 4: Profile
+    User name, phone, settings, saved addresses
+
+Modal Screens (overlay, not tab):
+  Screen 16 Complaint
+  Screen 17 Seva Suraksha
+
+---
+
+BUILD ORDER FOR HACKATHON
+---------------------------
+Build in this exact order so a working demo flow exists at every step:
+
+Step 1: Set up Expo project + navigation skeleton + mock data files
+Step 2: Screen 01 + Screen 02 (language + login) → user can log in
+Step 3: Screen 03 (home) → user sees services
+Step 4: Screen 04 + Screen 05 → user can select service and fill booking
+Step 5: Screen 06 → worker match card shows up
+Step 6: Screen 07 → map tracking animation
+Step 7: Screen 08 + Screen 09 → start OTP and job in progress
+Step 8: Screen 11 + Screen 12 + Screen 13 → completion, payment, fair breakdown
+Step 9: Screen 14 → rating
+Step 10: Screen 15 → no-worker fallback (Seva Suraksha demo)
+Step 11: Screen 17 → Seva Suraksha guarantee screen
+Step 12: Screen 10 + Screen 16 → extra work approval + complaint (polish)
+Step 13: Bottom tabs, notifications, profile screen
+
+At the end of Step 9 you have a complete demo loop:
+  Login → Home → Book → Match → Track → OTP → Pay → Rate
+
+---
+
+DEMO FLOW FOR JUDGES (exact path to rehearse)
+-----------------------------------------------
+1. Open app → select English
+2. Enter phone → OTP auto-fills (or show OTP on screen)
+3. Home screen → tap Plumber
+4. Service detail → tap Book Now
+5. Booking form → type "tap is leaking" → tap Find a Worker
+6. Worker match card → show Rajan Kumar → tap Confirm
+7. Live tracking → watch worker marker move to home
+8. Worker arrived → tap Enter Start OTP → OTP appears → tap Confirm
+9. Job in progress → tap Worker requests extra work → approve it
+10. Tap Mark Completed → Completion OTP → confirm
+11. Payment screen → tap UPI → Pay
+12. Fair breakdown → show ₹400 to worker, ₹50 welfare, etc.
+13. Rate 5 stars → done
+14. Go back → tap Emergency Help → show Screen 15 → tap Expand Search
+    → new worker found → show Seva Suraksha screen
+
+Total demo time: approximately 3 minutes end to end.
+
+---
+
+WHAT TO MOCK (not build fully)
+--------------------------------
+- Real SMS OTP: just generate and display the number in app
+- Real maps GPS: use a fixed animated route
+- Real payment gateway: show a success screen after tap
+- Real backend/API: use JSON files imported directly
+- Real photo upload: use expo-image-picker and show local thumbnail
+- Real push notifications: show a static mock notification list
+
+---
+
+PITCH LINE FOR JUDGES
+-----------------------
+"UniServe is not just a booking app.
+It is a cooperative-backed service-assurance platform.
+Every failed or risky situation has a transparent recovery path
+for the customer, while keeping workers accountable and protected."

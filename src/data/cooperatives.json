@@ -1,0 +1,383 @@
+[
+  {
+    "id": "coop1",
+    "name": "South Delhi District Labour Cooperative Federation",
+    "registration_no": "MSCS/CR/2019/DL-482 (NCCT Affiliated)",
+    "head_name": "Shri Ramesh Chandra Varma",
+    "head_designation": "Federation President & District Ward Coordinator",
+    "head_photo": "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=300&q=80",
+    "phone": "+91 98101 23456",
+    "email": "southdelhi.coop@gov.in",
+    "office_address": "Cooperative Bhawan, Sector 4, R.K. Puram, New Delhi - 110022",
+    "fleet_size": "75+ Certified Artisans",
+    "rating": 4.9,
+    "completed_bulk_contracts": 142,
+    "ward_coverage": "South Delhi, Lajpat Nagar, Saket, Hauz Khas, Greater Kailash",
+    "bulk_services": [
+      {
+        "id": "bs1",
+        "title": "Overhead & Underground Water Tank Cleaning",
+        "capacity": "5,000L to 50,000L",
+        "icon": "water",
+        "base_estimate": "₹1,499 onwards",
+        "description": "High-pressure descaling, sludge extraction, and UV antibacterial sterilization for apartment complexes & RWAs."
+      },
+      {
+        "id": "bs2",
+        "title": "Society Electrical Earthing & Safety Audit",
+        "capacity": "Complete Society Grid",
+        "icon": "flash",
+        "base_estimate": "₹2,499 onwards",
+        "description": "Transformer testing, main breaker thermal audit, common lighting wiring and lightning arrester verification."
+      },
+      {
+        "id": "bs3",
+        "title": "Pre-Monsoon Society Drainage & Desilting",
+        "capacity": "Perimeter & Stormwater Drains",
+        "icon": "construct",
+        "base_estimate": "₹3,999 onwards",
+        "description": "De-clogging stormwater channels, sewer line jetting, and manhole chamber restoration before heavy rains."
+      },
+      {
+        "id": "bs4",
+        "title": "Society Solar Panel Array Washing & Maintenance",
+        "capacity": "10 kW to 200 kW Rooftops",
+        "icon": "sunny",
+        "base_estimate": "₹1,999 onwards",
+        "description": "De-ionized water scrubbing, inverter health checks, and junction box terminal tightening."
+      },
+      {
+        "id": "bs5",
+        "title": "Gated Society Common Area Deep Clean Drive",
+        "capacity": "Clubhouse, Corridors & Stilt Parking",
+        "icon": "sparkles",
+        "base_estimate": "₹2,999 onwards",
+        "description": "Industrial scrubbing machines, basement grease removal, and eco-friendly sanitized pressure washing."
+      },
+      {
+        "id": "bs6",
+        "title": "Perimeter Wall & Society Exterior Painting Contract",
+        "capacity": "Custom Sq. Ft. Estimate",
+        "icon": "color-palette",
+        "base_estimate": "Inspection-based Quote",
+        "description": "Anti-fungal exterior coating, boundary wall painting, and structural crack waterproofing."
+      }
+    ],
+    "institutional_services": [
+      {
+        "id": "inst_1",
+        "title": "Campus Mega Water Reservoir & RO Plant Sanitization",
+        "capacity": "50,000L to 2,50,000L Reservoirs",
+        "icon": "water",
+        "base_estimate": "₹7,999 onwards",
+        "description": "Deep mechanical sludge extraction, rotary chemical descaling, food-grade antimicrobial disinfection, and multi-stage commercial RO filtration health audit for colleges and student hostels.",
+        "statutory_compliance": "BIS 10500 Drinking Water Hygiene Certified"
+      },
+      {
+        "id": "inst_2",
+        "title": "Campus Substation, Lab Earthing & Electrical Safety Audit",
+        "capacity": "Transformers, LT Panels & Computer Labs",
+        "icon": "flash",
+        "base_estimate": "₹12,499 onwards",
+        "description": "Thermographic panel scan, computer lab dedicated low-resistance chemical earthing pit testing, lightning protection, and statutory safety certificate issued for AICTE/UGC accreditation.",
+        "statutory_compliance": "CEA Regulation 2010 & AICTE Statutory Compliance"
+      },
+      {
+        "id": "inst_3",
+        "title": "Student Hostel Turnover & Campus Mega Sanitization",
+        "capacity": "50 to 200+ Rooms, Dining Mess & Labs",
+        "icon": "sparkles",
+        "base_estimate": "₹14,999 onwards",
+        "description": "Complete semester-break student hostel room turnover, mechanized ride-on scrubber cleaning of academic corridors, and dining mess commercial kitchen degreasing.",
+        "statutory_compliance": "FSSAI Commercial Kitchen Hygiene Standard"
+      },
+      {
+        "id": "inst_4",
+        "title": "Institutional Solar Rooftop & Streetlight Fleet Overhaul",
+        "capacity": "50 kW to 500 kW Grid-Tied Arrays",
+        "icon": "sunny",
+        "base_estimate": "₹8,999 onwards",
+        "description": "De-ionized high-volume panel washing, inverter string efficiency testing, junction box torque auditing, and campus perimeter solar streetlights maintenance.",
+        "statutory_compliance": "MNRE Commercial Solar Maintenance Standard"
+      },
+      {
+        "id": "inst_5",
+        "title": "Lecture Hall Desks, Lab Benches & Hostel Furniture Overhaul",
+        "capacity": "Auditoriums, Classrooms & Hostels",
+        "icon": "hammer",
+        "base_estimate": "₹6,999 onwards",
+        "description": "Multi-artisan carpentry squad for dual-desk welding & screw tightening, auditorium seat repair, library steel rack leveling, and hostel bed/cupboard restoration.",
+        "statutory_compliance": "Institutional Ergonomic Safety Assured"
+      },
+      {
+        "id": "inst_6",
+        "title": "Academic Block, Seminar Hall & Campus Painting",
+        "capacity": "Department Wings & Sports Fields",
+        "icon": "color-palette",
+        "base_estimate": "₹18,000 onwards",
+        "description": "Anti-microbial classroom wall coatings, seminar hall acoustic panel refinishing, boundary wall repainting, and sports ground / running track synthetic line markings.",
+        "statutory_compliance": "Low VOC Eco-Cooperative Paint Standard"
+      },
+      {
+        "id": "inst_7",
+        "title": "Campus Botanical Grounds, Tree Pruning & Horticulture",
+        "capacity": "5 to 50+ Acres Campus Grounds",
+        "icon": "leaf",
+        "base_estimate": "₹9,499 onwards",
+        "description": "Certified arborists and horticulturists for pre-monsoon storm safety tree lopping, sports turf aerating and mowing, botanical garden upkeep, and organic composting.",
+        "statutory_compliance": "Municipal Arborist Safety Protocol"
+      },
+      {
+        "id": "inst_8",
+        "title": "College Transport Fleet Drivers & Event Chauffeurs",
+        "capacity": "Campus Buses, Vans & VIP Sedans",
+        "icon": "car",
+        "base_estimate": "₹1,199 / driver / day",
+        "description": "Police-verified, heavy & light vehicle commercial drivers for college bus route coverage, exam paper transit escorts, and university convocation delegate fleet management.",
+        "statutory_compliance": "State Transport Certified & Police Verified"
+      }
+    ],
+    "artisan_squad_roster": [
+      {
+        "id": "sq_1",
+        "name": "Manoj Kumar Verma",
+        "role": "Master Contractor & Lead Electrical Supervisor",
+        "photo": "https://images.unsplash.com/photo-1540569014015-19a7be504e3a?w=300&q=80",
+        "kyc_id": "AADHAAR-XXXX-XXXX-9481",
+        "police_clearance_no": "DL-POLICE-VERIF-2026-88419",
+        "trade": "Industrial Electrical & Substation Audits"
+      },
+      {
+        "id": "sq_2",
+        "name": "Ramesh Chandra",
+        "role": "Master Plumber & Pipeline Engineer",
+        "photo": "https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?w=300&q=80",
+        "kyc_id": "AADHAAR-XXXX-XXXX-3829",
+        "police_clearance_no": "DL-POLICE-VERIF-2026-55120",
+        "trade": "Mega Reservoir & Commercial Hydraulics"
+      },
+      {
+        "id": "sq_3",
+        "name": "Mohammad Arif",
+        "role": "Chief Furniture & Structural Carpenter",
+        "photo": "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=300&q=80",
+        "kyc_id": "AADHAAR-XXXX-XXXX-7164",
+        "police_clearance_no": "DL-POLICE-VERIF-2026-99321",
+        "trade": "Lecture Hall & Hostel Woodwork"
+      },
+      {
+        "id": "sq_4",
+        "name": "Sunita Devi",
+        "role": "Sanitation Guild Supervisor",
+        "photo": "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=300&q=80",
+        "kyc_id": "AADHAAR-XXXX-XXXX-4412",
+        "police_clearance_no": "DL-POLICE-VERIF-2026-22481",
+        "trade": "Hostel & Industrial Kitchen Hygiene"
+      },
+      {
+        "id": "sq_5",
+        "name": "Rajesh Kumar",
+        "role": "Surface Coating & Paint Master",
+        "photo": "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=300&q=80",
+        "kyc_id": "AADHAAR-XXXX-XXXX-1954",
+        "police_clearance_no": "DL-POLICE-VERIF-2026-77312",
+        "trade": "Classroom & Facade Painting"
+      },
+      {
+        "id": "sq_6",
+        "name": "Vikram Singh",
+        "role": "Fleet & Heavy Vehicle Lead Driver",
+        "photo": "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=300&q=80",
+        "kyc_id": "AADHAAR-XXXX-XXXX-8201",
+        "police_clearance_no": "DL-POLICE-VERIF-2026-11942",
+        "trade": "College Bus & Protocol Convoy"
+      }
+    ]
+  },
+  {
+    "id": "coop2",
+    "name": "Central Delhi Workers & Artisans Welfare Cooperative",
+    "registration_no": "DL-COOP/2021/719",
+    "head_name": "Smt. Kamala Devi",
+    "head_designation": "Secretary & Women's Sanitation Guild Head",
+    "head_photo": "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=300&q=80",
+    "phone": "+91 98112 87654",
+    "email": "centraldelhi.labour@coop.org",
+    "office_address": "Shramik Seva Kendra, Pusa Road, Karol Bagh, New Delhi - 110005",
+    "fleet_size": "50+ Certified Women Artisans",
+    "rating": 4.8,
+    "completed_bulk_contracts": 98,
+    "ward_coverage": "Central Delhi, Karol Bagh, Connaught Place, Patel Nagar",
+    "bulk_services": [
+      {
+        "id": "bs1",
+        "title": "Overhead & Underground Water Tank Cleaning",
+        "capacity": "5,000L to 50,000L",
+        "icon": "water",
+        "base_estimate": "₹1,499 onwards",
+        "description": "High-pressure descaling, sludge extraction, and UV antibacterial sterilization for apartment complexes & RWAs."
+      },
+      {
+        "id": "bs2",
+        "title": "Society Electrical Earthing & Safety Audit",
+        "capacity": "Complete Society Grid",
+        "icon": "flash",
+        "base_estimate": "₹2,499 onwards",
+        "description": "Transformer testing, main breaker thermal audit, common lighting wiring and lightning arrester verification."
+      },
+      {
+        "id": "bs3",
+        "title": "Pre-Monsoon Society Drainage & Desilting",
+        "capacity": "Perimeter & Stormwater Drains",
+        "icon": "construct",
+        "base_estimate": "₹3,999 onwards",
+        "description": "De-clogging stormwater channels, sewer line jetting, and manhole chamber restoration before heavy rains."
+      },
+      {
+        "id": "bs4",
+        "title": "Society Solar Panel Array Washing & Maintenance",
+        "capacity": "10 kW to 200 kW Rooftops",
+        "icon": "sunny",
+        "base_estimate": "₹1,999 onwards",
+        "description": "De-ionized water scrubbing, inverter health checks, and junction box terminal tightening."
+      },
+      {
+        "id": "bs5",
+        "title": "Gated Society Common Area Deep Clean Drive",
+        "capacity": "Clubhouse, Corridors & Stilt Parking",
+        "icon": "sparkles",
+        "base_estimate": "₹2,999 onwards",
+        "description": "Industrial scrubbing machines, basement grease removal, and eco-friendly sanitized pressure washing."
+      },
+      {
+        "id": "bs6",
+        "title": "Perimeter Wall & Society Exterior Painting Contract",
+        "capacity": "Custom Sq. Ft. Estimate",
+        "icon": "color-palette",
+        "base_estimate": "Inspection-based Quote",
+        "description": "Anti-fungal exterior coating, boundary wall painting, and structural crack waterproofing."
+      }
+    ],
+    "institutional_services": [
+      {
+        "id": "inst_1",
+        "title": "Campus Mega Water Reservoir & RO Plant Sanitization",
+        "capacity": "50,000L to 2,50,000L Reservoirs",
+        "icon": "water",
+        "base_estimate": "₹7,999 onwards",
+        "description": "Deep mechanical sludge extraction, rotary chemical descaling, food-grade antimicrobial disinfection, and multi-stage commercial RO filtration health audit for colleges and student hostels.",
+        "statutory_compliance": "BIS 10500 Drinking Water Hygiene Certified"
+      },
+      {
+        "id": "inst_2",
+        "title": "Campus Substation, Lab Earthing & Electrical Safety Audit",
+        "capacity": "Transformers, LT Panels & Computer Labs",
+        "icon": "flash",
+        "base_estimate": "₹12,499 onwards",
+        "description": "Thermographic panel scan, computer lab dedicated low-resistance chemical earthing pit testing, lightning protection, and statutory safety certificate issued for AICTE/UGC accreditation.",
+        "statutory_compliance": "CEA Regulation 2010 & AICTE Statutory Compliance"
+      },
+      {
+        "id": "inst_3",
+        "title": "Student Hostel Turnover & Campus Mega Sanitization",
+        "capacity": "50 to 200+ Rooms, Dining Mess & Labs",
+        "icon": "sparkles",
+        "base_estimate": "₹14,999 onwards",
+        "description": "Complete semester-break student hostel room turnover, mechanized ride-on scrubber cleaning of academic corridors, and dining mess commercial kitchen degreasing.",
+        "statutory_compliance": "FSSAI Commercial Kitchen Hygiene Standard"
+      },
+      {
+        "id": "inst_4",
+        "title": "Institutional Solar Rooftop & Streetlight Fleet Overhaul",
+        "capacity": "50 kW to 500 kW Grid-Tied Arrays",
+        "icon": "sunny",
+        "base_estimate": "₹8,999 onwards",
+        "description": "De-ionized high-volume panel washing, inverter string efficiency testing, junction box torque auditing, and campus perimeter solar streetlights maintenance.",
+        "statutory_compliance": "MNRE Commercial Solar Maintenance Standard"
+      },
+      {
+        "id": "inst_5",
+        "title": "Lecture Hall Desks, Lab Benches & Hostel Furniture Overhaul",
+        "capacity": "Auditoriums, Classrooms & Hostels",
+        "icon": "hammer",
+        "base_estimate": "₹6,999 onwards",
+        "description": "Multi-artisan carpentry squad for dual-desk welding & screw tightening, auditorium seat repair, library steel rack leveling, and hostel bed/cupboard restoration.",
+        "statutory_compliance": "Institutional Ergonomic Safety Assured"
+      },
+      {
+        "id": "inst_6",
+        "title": "Academic Block, Seminar Hall & Campus Painting",
+        "capacity": "Department Wings & Sports Fields",
+        "icon": "color-palette",
+        "base_estimate": "₹18,000 onwards",
+        "description": "Anti-microbial classroom wall coatings, seminar hall acoustic panel refinishing, boundary wall repainting, and sports ground / running track synthetic line markings.",
+        "statutory_compliance": "Low VOC Eco-Cooperative Paint Standard"
+      },
+      {
+        "id": "inst_7",
+        "title": "Campus Botanical Grounds, Tree Pruning & Horticulture",
+        "capacity": "5 to 50+ Acres Campus Grounds",
+        "icon": "leaf",
+        "base_estimate": "₹9,499 onwards",
+        "description": "Certified arborists and horticulturists for pre-monsoon storm safety tree lopping, sports turf aerating and mowing, botanical garden upkeep, and organic composting.",
+        "statutory_compliance": "Municipal Arborist Safety Protocol"
+      },
+      {
+        "id": "inst_8",
+        "title": "College Transport Fleet Drivers & Event Chauffeurs",
+        "capacity": "Campus Buses, Vans & VIP Sedans",
+        "icon": "car",
+        "base_estimate": "₹1,199 / driver / day",
+        "description": "Police-verified, heavy & light vehicle commercial drivers for college bus route coverage, exam paper transit escorts, and university convocation delegate fleet management.",
+        "statutory_compliance": "State Transport Certified & Police Verified"
+      }
+    ],
+    "artisan_squad_roster": [
+      {
+        "id": "sq_201",
+        "name": "Sunita Devi",
+        "role": "Sanitation Guild Supervisor & Lead Chemist",
+        "photo": "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=300&q=80",
+        "kyc_id": "AADHAAR-XXXX-XXXX-4412",
+        "police_clearance_no": "DL-POLICE-VERIF-2026-22481",
+        "trade": "Hostel & Industrial Kitchen Hygiene"
+      },
+      {
+        "id": "sq_202",
+        "name": "Pooja Sharma",
+        "role": "Certified Commercial RO & Water Engineer",
+        "photo": "https://images.unsplash.com/photo-1580489944761-15a19d654956?w=300&q=80",
+        "kyc_id": "AADHAAR-XXXX-XXXX-9128",
+        "police_clearance_no": "DL-POLICE-VERIF-2026-33918",
+        "trade": "Mega Reservoir & Commercial Hydraulics"
+      },
+      {
+        "id": "sq_203",
+        "name": "Rajesh Meena",
+        "role": "Substation Electrical Lead",
+        "photo": "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=300&q=80",
+        "kyc_id": "AADHAAR-XXXX-XXXX-6721",
+        "police_clearance_no": "DL-POLICE-VERIF-2026-44019",
+        "trade": "Industrial Electrical & Substation Audits"
+      },
+      {
+        "id": "sq_204",
+        "name": "Kavita Rao",
+        "role": "Horticulture & Grounds Master",
+        "photo": "https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=300&q=80",
+        "kyc_id": "AADHAAR-XXXX-XXXX-8812",
+        "police_clearance_no": "DL-POLICE-VERIF-2026-78190",
+        "trade": "Campus Grounds & Tree Safety"
+      },
+      {
+        "id": "sq_205",
+        "name": "Devendra Kumar",
+        "role": "Heavy Fleet Transport Captain",
+        "photo": "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=300&q=80",
+        "kyc_id": "AADHAAR-XXXX-XXXX-5519",
+        "police_clearance_no": "DL-POLICE-VERIF-2026-90184",
+        "trade": "College Bus & Protocol Convoy"
+      }
+    ]
+  }
+]

@@ -1,0 +1,825 @@
+====================================================================================================
+               UNISERV — COMPLETE END-TO-END APPLICATION ARCHITECTURE & DOCUMENTATION
+                     "India's First Multi-State Cooperative Service Assurance Platform"
+====================================================================================================
+Document Version : 2.0.0 (Master Release Specification)
+Date of Record   : September 2026
+System Scope     : End-to-End Customer / User Application, Cooperative Core, Community & Bulk Engine
+Target Framework : React Native (Expo SDK 57), Universal Mobile (Android / iOS) & Responsive Web
+State Engine     : Reactive Context API with Persistent Offline Storage & Hardware Integration
+Ecosystem Sync   : Two-App Cooperative Mesh (Customer App + Partner/Worker App)
+====================================================================================================
+
+TABLE OF CONTENTS:
+----------------------------------------------------------------------------------------------------
+ 1. EXECUTIVE SUMMARY & MISSION PHILOSOPHY
+ 2. COMPLETE HIGH-LEVEL TECH STACK & SYSTEM ARCHITECTURE
+ 3. EXHAUSTIVE DIRECTORY MAP & FILE-BY-FILE DEEP DIVE
+ 4. THE 10 COOPERATIVE HOUSEHOLD SERVICES (EXHAUSTIVE BREAKDOWN)
+ 5. COMMUNITY & BULK BOOKING PLATFORM (RWAs & INSTITUTIONAL CAMPUSES)
+ 6. COMPLETE END-TO-END USER JOURNEYS & INTERACTION FLOWS
+ 7. THE 6-STAGE SERVICE LIFECYCLE STATE MACHINE & DUAL-OTP HANDSHAKE
+ 8. SPECIAL ALGORITHMIC PHASES (PHASES I, II, III, IV)
+ 9. VEHICLE TYPE SELECTOR (5/7 SEATER) & MOBILITY DISPATCH ENGINE
+10. 80/10/6/4 FAIR WAGE ALLOCATION, ESCROW & PAYMENT ARCHITECTURE
+11. SEVA SURAKSHA STATUTORY GUARANTEE & RESOLUTION MATRIX
+12. MULTIMODAL DIAGNOSTICS: AUDIO VOICE RECORDER, VIDEO & CAMERA ENGINE
+13. 23 INDIAN REGIONAL LANGUAGES & DYNAMIC LOCALIZATION SUBSYSTEM
+14. INCLUSIVE ACCESSIBILITY SUITE: IVRS VOICE CALLING & PROXY ASSISTANCE
+15. DATA CONTRACTS, SCHEMAS & INTER-APP EVENT SPECIFICATIONS
+16. VERIFICATION, AUTOMATED TEST SUITES & QUALITY ASSURANCE RECORD
+17. PRODUCTION DEPLOYMENT & ROADMAP SPECIFICATIONS
+
+====================================================================================================
+1. EXECUTIVE SUMMARY & MISSION PHILOSOPHY
+====================================================================================================
+UniServ is India's pioneer on-demand home and institutional service delivery platform built on the 
+statutory framework of the Multi-State Cooperative Societies (MSCS) Act. Unlike predatory aggregator 
+platforms that extract 25% to 35% commission margins from unorganized gig workers while offering 
+customers no transparent pricing or enforceable service warranties, UniServ establishes an equitable, 
+high-trust bridge between urban consumers and democratically governed worker cooperatives.
+
+KEY DIFFERENTIATORS:
+1. Anti-Exploitation Fair Wage Model (80/10/6/4):
+   - 80% of every rupee paid goes directly to the artisan's bank account.
+   - 10% is deposited into the Cooperative Worker Healthcare, Accident & Pension Welfare Fund.
+   - 6% funds the District Tool Bank, Training Academy, and Local Cooperative Operations.
+   - 4% covers digital platform maintenance and the Seva Suraksha statutory warranty guarantee pool.
+
+2. Dual Operational Scales:
+   - Solo Household Services: Immediate or scheduled dispatch of certified individual artisans 
+     (or 2-3 artisan squads for heavy cleaning and landscaping) across 10 specialized trades.
+   - Bulk & Community Projects: End-to-end turnkey project execution for Residential Welfare 
+     Associations (RWAs), gated townships, educational universities, and corporate campuses 
+     with milestone-based escrow financing, digital gate passes, and police-verified worker rosters.
+
+3. Zero Trust & Physical Handshake Security:
+   - Physical Start OTP handshake prevents unauthorized worker impersonation or ghost arrivals.
+   - Physical Completion OTP sign-off guarantees work verification prior to payment disbursement.
+   - Part Procurement Pause & Resume OTP (Phase I) for Electricians and Technicians ensures 
+     workers are not penalized and customers are not billed while parts are being procured.
+   - Automatic 2-Hour Overtime Surcharge (Phase II) guarantees fair wages (+₹100) for extended labor.
+   - Cancellation Surcharge Protection (Phase III) prevents frivolous booking cancellations (+₹25 fee 
+     transferred to artisan compensation fund on next booking).
+   - 30 KYC-Verified Trade-Isolated Workers Pool (Phase IV) with zero cross-trade contamination.
+
+4. Universal Accessibility:
+   - Complete localization across 23 Scheduled Indian Languages (English, Hindi, Tamil, Telugu, etc.).
+   - Interactive Voice Response System (IVRS) simulator for digital illiterates and senior citizens.
+   - "Register for Another" assistive booking proxy flow for elderly parents and remote relatives.
+
+====================================================================================================
+2. COMPLETE HIGH-LEVEL TECH STACK & SYSTEM ARCHITECTURE
+====================================================================================================
+UniServ is developed using a unified, cross-platform architecture that compiles natively to Android 
+(APK/AAB), iOS (IPA), and Progressive Web App (PWA) with zero code bifurcation.
+
+CORE TECHNOLOGIES:
+- Runtime Environment : Node.js (v24.19.0 LTS)
+- Client Framework    : React Native 0.79.x running on Expo SDK 57
+- Navigation Engine   : React Navigation v7 (@react-navigation/native, native-stack, bottom-tabs)
+- Global State Engine : React Context Architecture (UserContext & BookingContext) with custom hooks
+- Offline Persistence : AsyncStorage (@react-native-async-storage/async-storage)
+- Hardware APIs       :
+  * Expo Location / HTML5 Geolocation (High accuracy doorstep GPS coordinates)
+  * Expo Image Picker & Media Capture (Multi-photo and video diagnostic attachments)
+  * Web Audio API & HTML5 Audio / SpeechRecognition (Real live voice note recording & playback)
+  * Web Speech Synthesis API (Multilingual automated IVRS audio generator)
+- Vector Iconography  : @expo/vector-icons (Ionicons, MaterialCommunityIcons, FontAwesome5)
+- Animation System    : React Native Animated API & Easing (Map vehicle tracking, pulse effects)
+- Design System       : UniServ High-Trust Human-Crafted Design System (Deep Indigo #1E3A8A, Emerald 
+                        #059669, Amber #D97706, Rose #DC2626, Slate Neutrals)
+
+====================================================================================================
+3. EXHAUSTIVE DIRECTORY MAP & FILE-BY-FILE DEEP DIVE
+====================================================================================================
+The UniServ codebase is strictly modularized into 8 specialized directories under `/src`:
+
+`c:/My_Files/SIH/UniServ/`
+  |-- `App.js`                            # App entry point, SafeAreaProvider, Context Providers & Root Navigator
+  |-- `index.js`                          # Expo root component registry
+  |-- `package.json`                      # NPM dependencies, scripts, and Expo configuration
+  |-- `app.json`                          # Expo project metadata, icons, splash screens, permissions
+  |
+  |--- `/src/theme/`
+  |      `colors.js`                      # Master semantic color tokens (Primary, Secondary, Surface, State)
+  |
+  |--- `/src/data/`
+  |      `services.json`                  # 10 Household Services metadata, rates, inclusions & safety protocols
+  |      `workers.json`                   # 30 KYC-verified workers (3 per trade) with ratings, vehicles & co-ops
+  |      `cooperatives.json`              # Registered MSCS cooperative societies across Indian districts
+  |      `bulkServiceConfigs.js`          # 10-Trade Bulk matrix (Scales, Materials, Crew sizes, Days, Milestones)
+  |      `languages.json`                 # 23 Indian Scheduled Languages with native script labels
+  |      `mockNotifications.js`           # Cooperative alerts, warranty receipts & wage distribution audits
+  |
+  |--- `/src/context/`
+  |      `UserContext.js`                 # Auth state, user profile, saved addresses, permissions & i18n
+  |      `BookingContext.js`              # Complete booking state machine, lifecycle, timers, OTPs & payments
+  |
+  |--- `/src/components/`
+  |      `Header.js`                      # Top navigation bar with hyper-local address switcher, language & SOS
+  |      `LanguageSelectorModal.js`       # Searchable modal sheet for 23 Indian regional languages
+  |      `BookingStatusStepper.js`        # 6-Stage vertical lifecycle progress tracker
+  |      `WorkerTrustCard.js`             # Cooperative identity card with photo, badges, ratings & distance
+  |      `ServiceCard.js`                 # Category service cards with starting price pills and visual trade icon
+  |      `PaymentBreakdown.js`            # 80/10/6/4 Fair Wage distribution progress bar with exact splits
+  |      `RealLiveTrackingMap.js`         # Canvas/SVG live tracking map with moving vehicle and ETA controls
+  |      `SimulatedMap.js`                # Compact map widget for tracking previews
+  |      `SevaSurakshaTable.js`           # 9-Scenario statutory guarantee resolution matrix
+  |      `AudioVoiceRecorder.js`          # Voice note recorder (MediaRecorder, SpeechRecognition, Playback)
+  |      `MediaCaptureModal.js`           # Diagnostic photo/video picker modal
+  |      `PermissionsModal.js`            # Hardware permissions prompt (GPS, Camera, Audio, Storage)
+  |
+  |--- `/src/screens/`
+  |      `Screen01_LanguageSelection.js`  # First launch screen: 23 Indian language cards with voice greeting
+  |      `Screen02_OTPLogin.js`           # Mobile number entry, OTP verification, and instant auto-fill
+  |      `Screen02_Registration.js`       # Profile completion, doorstep GPS location autofill, address tagging
+  |      `Screen03_Home.js`               # Main dashboard: Category grid, banner, active booking card, coop trust
+  |      `Screen04_ServiceDetail.js`      # Detailed service card: inclusions, steps, safety & base pricing
+  |      `Screen05_BookingForm.js`        # Dynamic booking form (Solo vs Bulk, 3-question triage, vehicle selector)
+  |      `Screen06_WorkerMatch.js`        # Radar dispatch animation, trade-isolated worker match & reason
+  |      `Screen07_LiveTracking.js`       # Live dispatch tracker: ETA map, toolkit inventory, delay modal, call/chat
+  |      `Screen08_StartOTP.js`           # Physical arrival verification & 4-digit Start OTP handshake
+  |      `Screen09_JobInProgress.js`      # Active work monitor: stopwatch, Phase I Part Pause/Resume OTP
+  |      `Screen10_ExtraWorkApproval.js`  # Mid-service scope expansion consent with line-item cost addition
+  |      `Screen11_CompletionOTP.js`      # Final inspection, mutual sign-off & 4-digit Completion OTP handshake
+  |      `Screen12_PaymentScreen.js`      # Transparent settlement: UPI QR, Cards, Cash, 80/10/6/4 breakdown
+  |      `Screen12_BulkPaymentScreen.js`  # Bulk project Milestone 1 Advance Escrow deposit screen
+  |      `Screen13_PaymentSuccess.js`     # Payment receipt, Seva Suraksha warranty certificate, invoice download
+  |      `Screen13_BulkProjectSuccess.js` # Bulk project confirmation, contractor assignment, gate pass download
+  |      `Screen14_RatingScreen.js`       # Mutual rating: 5-star rating, cooperative tip, badge endorsements
+  |      `Screen15_NoWorkerAvailable.js`  # Out-of-area fallback screen with priority dispatch queue
+  |      `Screen16_ComplaintScreen.js`    # Grievance redressal desk, photo evidence upload, dispute arbitration
+  |      `Screen17_SevaSurakshaScreen.js` # Statutory insurance terms, zero-toll warranty, claims submission
+  |      `Screen18_CommunityScreen.js`    # Societies & Campuses Bulk Hub: 4 scale tiers, gate passes, proposals
+  |      `Screen_IVRSCall.js`             # Full IVRS voice simulator with DTMF keypad & multilingual voice
+  |      `Screen_RegisterForAnother.js`   # Assistive proxy booking for parents/family with secondary phone
+  |
+  |--- `/src/utils/`
+  |      `locationService.js`             # Doorstep GPS reverse geocoding & hyper-local cooperative matcher
+  |      `ivrsAudioEngine.js`             # Dual-tone DTMF synthesizer & multilingual speech audio generator
+  |      `i18nHelper.js`                  # Language lookup tables, directionality (LTR/RTL), script renderers
+  |
+  |--- `/src/i18n/`
+  |      `translations.js`                # Master i18n dictionaries (English, Tamil, Hindi) with safe fallback
+  |      `serviceTranslations.js`         # Multi-language descriptions for all 10 service categories
+  |      `tradeQuestionsTranslations.js`  # 30 trade diagnostic triage questions in regional languages
+  |
+  |--- `/src/navigation/`
+         `AppNavigator.js`                # Root Native Stack Navigator connecting all 23 screens
+         `BottomTabNavigator.js`          # Bottom navigation tabs (Home, Community, Bookings, Notifications, Profile)
+
+====================================================================================================
+4. THE 10 COOPERATIVE HOUSEHOLD SERVICES (EXHAUSTIVE BREAKDOWN)
+====================================================================================================
+Every household trade in UniServ is operated by a certified trade guild affiliated with a district 
+cooperative society. There are strictly 10 core household trades (Home Tutor was removed as per specs):
+
+1. PLUMBER (`s1`)
+   - Starting Base Rate: ₹99
+   - Common Diagnoses: Water pipe bursts, concealed pipeline seepage, sanitary fixture replacement, 
+     overhead water tank ball-valve repair, RO water purifier plumbing, drain blockages.
+   - Diagnostic Questions:
+     * Q1: Primary plumbing issue (Tap/Faucet, Pipe Leakage, Toilet/Sanitary, Water Tank, Clogged Drain).
+     * Q2: Pipe material setup (CPVC/UPVC, Galvanized Iron, Concealed Wall Piping, External Fitting).
+     * Q3: Required parts supply (Customer has parts, Artisan should bring standard fittings).
+   - On-Site Certified Toolkit: Pressure joint wrenches (10" & 12"), Teflon thread seal tape, basin 
+     wrench, pipe clamps, spare rubber gaskets, rotary drain snake.
+   - Procurement Pause (Phase I): NOT eligible.
+
+2. ELECTRICIAN (`s2`)
+   - Starting Base Rate: ₹99
+   - Common Diagnoses: Main MCB tripping, short circuit faults, modular switchboard replacement, 
+     ceiling fan capacitor/coil replacement, decorative light installation, 3-phase wiring inspection.
+   - Diagnostic Questions:
+     * Q1: Electrical fault type (Tripping MCB, Burnt Switchboard, Fan Repair, Inverter Wiring, Earthing).
+     * Q2: Electrical phase load (Single Phase 230V, Three Phase 415V, Commercial High Amp).
+     * Q3: Material readiness (Artisan should bring Havells/Anchor MCB, Customer supplies wire).
+   - On-Site Certified Toolkit: Digital multimeter (CAT III 600V), 10kV insulated VDE safety pliers, 
+     wire strippers, C-Curve MCB spares, continuity neon tester, heat-shrink insulation tape.
+   - Procurement Pause (Phase I): ELIGIBLE (Stopwatch pauses with Resume OTP while ordering parts).
+
+3. CLEANER (`s3`)
+   - Starting Base Rate: ₹199
+   - Common Diagnoses: Deep kitchen degreasing, bathroom calcium/limescale scrub, sofa upholstery 
+     shampooing, full home post-renovation cleaning, balcony pressure wash.
+   - Multi-Worker Squad Selector: Customer can select 1, 2, or 3 Cleaning Artisans:
+     * 1 Worker: Standard pace (Base ₹199).
+     * 2 Workers: 2x Faster pace (+₹199 extra, Total ₹398).
+     * 3 Workers: 3x Rapid power clean (+₹398 extra, Total ₹597).
+   - Diagnostic Questions:
+     * Q1: Cleaning focus (Kitchen Deep Clean, Full Bathroom Scrub, Sofa/Carpet, Entire Apartment).
+     * Q2: Home floor configuration (1 BHK / Studio, 2 BHK, 3 BHK, Duplex Villa).
+     * Q3: Chemical preference (Eco-friendly organic enzymes, Heavy-duty stain descaler).
+   - On-Site Certified Toolkit: High-pressure rotary scrub buffer, color-coded microfiber pads, pet-safe 
+     organic cleaners, rubber squeegees, wet/dry extraction nozzles.
+   - Procurement Pause (Phase I): NOT eligible.
+
+4. CARPENTER (`s4`)
+   - Starting Base Rate: ₹149
+   - Common Diagnoses: Main door lock and latch repair, hydraulic hinge replacement for modular 
+     kitchen cabinets, sliding wardrobe track realignment, bespoke furniture assembly, bed frame repair.
+   - Diagnostic Questions:
+     * Q1: Woodwork requirement (Door Lock/Latch, Cabinet Hinges, Furniture Assembly, Wood Trimming).
+     * Q2: Wood/Material grade (Plywood/MDF, Solid Teak/Sheesham, Aluminium Frame, Particle Board).
+     * Q3: Hardware items (Artisan supplies hydraulic channels, Customer has Godrej lock).
+   - On-Site Certified Toolkit: Precision carpentry tenon saw, soft-close hydraulic hinge channels, 
+     wood chisels, adhesive fillers, digital spirit level, magnetic drill bits.
+   - Procurement Pause (Phase I): NOT eligible.
+
+5. PAINTER (`s5`)
+   - Starting Base Rate: ₹299
+   - Common Diagnoses: Wall moisture and dampness waterproofing, interior fresh coat painting, ceiling 
+     seepage repair, exterior weather-proof coating, single accent wall stencil/texture design.
+   - Diagnostic Questions:
+     * Q1: Painting scope (Single Accent Wall, Full Room Touch-Up, Damp Seepage Treatment, Full Home).
+     * Q2: Finish grade (Royal Luxury Silk, Premium Acrylic Emulsion, Anti-Damp Primer, Distemper).
+     * Q3: Masking & protection (Cooperative drop sheets included to cover all furniture).
+   - On-Site Certified Toolkit: Low-VOC 9-inch paint rollers, anti-damp putty scrapers, sandpaper 
+     sheets (80-220 grit), plastic floor masking sheets, masking tape rolls.
+   - Procurement Pause (Phase I): NOT eligible.
+
+6. CAREGIVER (`s6`)
+   - Starting Base Rate: ₹249
+   - Common Diagnoses: Post-operative patient care, bedridden elderly assistance, blood pressure and 
+     vitals monitoring, medication management, mobility and wheelchair transfer support.
+   - Diagnostic Questions:
+     * Q1: Care profile (Elderly Geriatric Care, Post-Surgery Recovery, Bedridden Patient, General Nurse).
+     * Q2: Daily duration shift (Short 2-hr Assistance, 4-hr Half Day, 8-hr Full Day).
+     * Q3: Special medical equipment (Oxygen concentrator present, Wheelchair mobility required).
+   - On-Site Certified Toolkit: Digital BP & pulse monitor, patient transfer mobility belt, pulse 
+     oximeter, certified geriatric first-aid kit, sanitized medical gloves.
+   - Procurement Pause (Phase I): NOT eligible.
+
+7. TECHNICIAN (`s7`)
+   - Starting Base Rate: ₹149
+   - Common Diagnoses: Split/Inverter AC refrigerant gas charging, cooling coil repair, AC indoor unit 
+     water leakage, microwave oven magnetron replacement, front-load washing machine drum repair.
+   - Diagnostic Questions:
+     * Q1: Appliance category (Split/Window AC, Refrigerator, Front/Top Washing Machine, Microwave).
+     * Q2: Fault symptom (Not Cooling/Heating, Power Not Turning On, Loud Vibrations, Water Leaking).
+     * Q3: Spare part requirement (Gas recharge required, PCB board inspection, Belt replacement).
+   - On-Site Certified Toolkit: Digital refrigerant manifold gauge (R32/R410A), capacitor microfarad 
+     tester, inverter PCB diagnostic probe, copper brazing torch, fin comb.
+   - Procurement Pause (Phase I): ELIGIBLE (Stopwatch pauses with Resume OTP while ordering parts).
+
+8. DOMESTIC HELPER / MAID / COOK (`s8`)
+   - Starting Base Rate: ₹149
+   - Common Diagnoses: Daily meal cooking (North/South Indian), deep utensil washing, floor sweeping and 
+     mopping, emergency substitute maid dispatch for when regular domestic help is on leave.
+   - Diagnostic Questions:
+     * Q1: Helper assignment (Home Cooking, Utensil Cleaning, Sweeping & Mopping, All-Round Help).
+     * Q2: Household size (1-2 People, 3-4 People, 5+ Extended Family).
+     * Q3: Dietary preference (Pure Vegetarian / Jain, Non-Vegetarian, Low Oil / Diabetic).
+   - On-Site Certified Toolkit: Verified Mahila Shramik ID badge, sanitized kitchen apron, non-scratch 
+     utensil scrub pads, cooperative domestic inspection checklist.
+   - Procurement Pause (Phase I): NOT eligible.
+
+9. DRIVER / CHAUFFEUR (`s9`)
+   - Starting Base Rate: ₹199 (Driver Only) / ₹599 (Car with Driver)
+   - Dual Booking Modes:
+     * Mode A: Driver Only (Customer's Own Car) — ₹199 City, ₹699 Full Day, ₹299 Airport, ₹1199 Outstation.
+       - Vehicle Capacity: 5 Seater (Standard) vs 7 Seater SUV (+₹100 Heavy Car Surcharge).
+       - Transmission Type: Manual (MT), Automatic (AT) (+₹100), Electric (EV) (+₹100).
+     * Mode B: Car with Driver (Commercial Cab with AC & Fuel):
+       - 5 Seater AC Sedan (Swift Dzire / Etios): ₹599 City, ₹1799 Full Day, ₹799 Airport, ₹2799 Outstation.
+       - 7 Seater SUV / MUV (Ertiga / Innova): ₹899 City, ₹2499 Full Day, ₹1199 Airport, ₹3799 Outstation.
+   - Diagnostic Questions:
+     * Q1: Service Mode (Driver Only for Own Car, Car + Driver Cab).
+     * Q2: Vehicle Capacity (5 Seater Sedan vs 7 Seater SUV).
+     * Q3: Trip Package (City Commute 2 hrs, Full Day 8 hrs, Airport Transfer, Outstation Round-Trip).
+   - On-Site Certified Toolkit: Commercial PSV badge, zero-alcohol breathalyzer clearance, live GPS 
+     navigation handset, FastTag, emergency portable tyre inflator.
+   - Procurement Pause (Phase I): NOT eligible.
+
+10. GARDENER (`s10`)
+   - Starting Base Rate: ₹199
+   - Common Diagnoses: Balcony potted plant pruning, root soil aeration, enriched vermicompost top-up, 
+     terrace vegetable garden grooming, pest & fungus treatment with organic neem oil spray.
+   - Multi-Worker Squad Selector: Customer can select 1, 2, or 3 Gardeners:
+     * 1 Worker: Standard pace (Base ₹199).
+     * 2 Workers: 2x Faster pace (+₹149 extra, Total ₹348).
+     * 3 Workers: 3x Rapid landscaping (+₹298 extra, Total ₹497).
+   - Diagnostic Questions:
+     * Q1: Gardening task (Balcony Plant Trimming, Lawn Mowing, Organic Pest Spray, Terrace Setup).
+     * Q2: Greenery scale (Up to 15 Pots, 16-40 Pots, Terrace Garden, Large Lawn).
+     * Q3: Soil enrichment (Artisan brings organic neem vermicompost, Customer supplies soil).
+   - On-Site Certified Toolkit: Heavy electric hedge shears, ergonomic hand trowels, weeding forks, 
+     root soil aerators, organic neem spray kit, enriched vermicompost.
+   - Procurement Pause (Phase I): NOT eligible.
+
+====================================================================================================
+5. COMMUNITY & BULK BOOKING PLATFORM (RWAs & INSTITUTIONAL CAMPUSES)
+====================================================================================================
+Accessible directly via the bottom navigation tab "Community" (`Screen18_CommunityScreen.js`) as well 
+as the "Bulk" toggle inside the booking form (`Screen05_BookingForm.js`), this subsystem caters to 
+large-scale residential societies and educational/corporate campuses.
+
+DUAL COMMUNITY CATEGORIES:
+1. Societies & RWAs (Residential Housing Societies):
+   - Scope: Overhead water sump cleaning, society-wide corridor LED rewiring, plumbing audits across 
+     piping shafts, compound wall painting, student hostel deep cleans.
+2. Colleges & Campuses (Universities & Educational Campuses):
+   - Scope: Statutory audit compliance (AICTE/UGC/NAAC standards), campus security gate pass issuance, 
+     hostel mess kitchen deep cleans, academic complex sanitation.
+
+THE 4-TIER SCALE ENGINE (Configured in `bulkServiceConfigs.js`):
+- Scale 1: Micro / Wing Level (e.g. 5–15 Flats or 10,000–25,000 sq ft Department Wing)
+  * Crew: 2–3 Artisans | Duration: 1–2 Days | Advance Escrow: 20%
+- Scale 2: Medium / Block Level (e.g. 16–50 Flats or 50–150 Room Hostel Block)
+  * Crew: 4–6 Artisans | Duration: 2–4 Days | Advance Escrow: 25%
+- Scale 3: Large / Society Level (e.g. 51–150 Flats or 3–5 Floor Academic Complex)
+  * Crew: 7–12 Artisans | Duration: 5–8 Days | Advance Escrow: 30%
+- Scale 4: Mega / Township Level (e.g. 150+ Flats or 50+ Acre University Campus)
+  * Crew: 12–20 Artisans | Duration: 8–15 Days | Advance Escrow: 35%
+
+SPECIALIZED MATERIAL TIERS (Tailored per trade):
+- Plumbing: Standard ISI UPVC Fittings vs Premium Astral CPVC & Heavy-Duty Valves.
+- Electrical: Standard ISI Copper Wire vs Polycab FRLS Flame-Retardant Wire & Schneider MCBs.
+- Painting: Asian Paints Tractor Emulsion vs Apex WeatherProof & DampProof Exterior Sealant.
+- Cleaning: Eco-Enzymatic Biodegradable Chemicals vs Industrial Diversey Chemical Systems.
+
+TRANSPARENT 80/10/6/4 METRIC CALCULATION:
+The UI computes and visualizes real-time metrics before booking:
+- Approximate Cost Range (Min to Max).
+- Estimated Midpoint Cost.
+- Direct Artisan Team Wages (80%).
+- Worker Healthcare & Accident Fund (10%).
+- District Co-op Reserve & Tool Depot (6%).
+- Platform & Seva Suraksha Pool (4%).
+
+MILESTONE ADVANCE ESCROW FINANCING:
+- Bulk projects are backed by a State Bank of India (SBI) Multi-State Cooperative Escrow account.
+- Customers deposit Milestone 1 Advance (20%–35%) to trigger contractor dispatch.
+- Milestone 2 is disbursed upon midpoint physical inspection sign-off.
+- Milestone 3 is released after statutory audit sign-off and 30-day warranty activation.
+
+STATUTORY CAMPUS GATE PASS & PROPOSAL GENERATION:
+- Gate Pass Generator: Generates digital security gate pass featuring police-verified artisan names, 
+  Aadhaar KYC hashes, tool inventory list, and cooperative vehicle plate numbers for gate security.
+- PDF Proposal Download: Generates official cooperative society cost estimate with government seal.
+
+====================================================================================================
+6. COMPLETE END-TO-END USER JOURNEYS & INTERACTION FLOWS
+====================================================================================================
+
+FLOW 1: SOLO HOUSEHOLD IMMEDIATE SERVICE BOOKING ("Book Now")
+1. User opens UniServ -> Selects preferred regional language on `Screen01_LanguageSelection`.
+2. Enters mobile number on `Screen02_OTPLogin` -> Automatically receives and verifies 4-digit OTP.
+3. On `Screen03_Home`, views available categories, active cooperative banner, and nearest co-op depot.
+4. Taps desired category (e.g., Electrician `s2`) -> Navigates to `Screen04_ServiceDetail`.
+5. Reviews inclusions, standardized rates, and safety protocols -> Taps "Book Now".
+6. `Screen05_BookingForm`:
+   - Auto-detects exact doorstep GPS location with street name, locality, and pincode.
+   - Answers 3 specialized trade triage questions (e.g., Tripping MCB, Single Phase, Artisan brings parts).
+   - Optional: Records live audio voice note or attaches photo/video evidence of fault.
+   - Selects "Book Immediate".
+   - Dynamically checks price breakdown (Base rate + optional add-ons - first time user discount ₹50).
+   - Taps "Find Verified Worker • ₹...".
+7. `Screen06_WorkerMatch`:
+   - Radar dispatch animation searches local cooperative radius.
+   - Matches nearest KYC-verified artisan (e.g., Vikram Singh, Electrician, 1.2 km away).
+   - Shows matching rationale (5-star rating, high completion rate, district guild member).
+8. `Screen07_LiveTracking`:
+   - Displays live interactive map with animated moving vehicle icon and real-time ETA countdown.
+   - Shows artisan trust card, photo, vehicle plate number, masked calling button, and real-time chat.
+   - Highlights 4-digit Safety PIN.
+   - Displays itemized certified on-site toolkit (multimeter, insulated pliers, MCBs, etc.).
+   - Displays attached voice note player and photo thumbnails.
+   - (Simulated 10-minute traffic delay triggers after 4 seconds with options to Wait or Switch Artisan).
+9. Artisan physically reaches doorstep:
+   - User taps "Arrived at Doorstep" -> Transitions to `Screen08_StartOTP`.
+   - Customer verifies artisan photo and ID badge, then shares the 4-digit Start OTP.
+10. `Screen09_JobInProgress`:
+    - Live stopwatch starts ticking (MM:SS).
+    - Status changes to "Work in Progress — Covered under Seva Suraksha".
+    - [Special Phase I]: If Electrician or Technician needs to order a part, artisan taps "Part Procurement". 
+      Stopwatch stops immediately. System generates a secure 4-digit Resume OTP. When artisan returns 
+      with the part, customer verifies part and enters Resume OTP to resume the stopwatch.
+    - [Special Phase II]: If total active stopwatch exceeds 120 minutes (2 hours), system automatically 
+      adds an overtime charge of +₹100 to the bill.
+    - Worker can request extra scope approval -> Navigates to `Screen10_ExtraWorkApproval` where customer 
+      inspects added items and accepts/rejects.
+11. Work Completed:
+    - Worker signals job finished -> Navigates to `Screen11_CompletionOTP`.
+    - Customer inspects quality of work, approves, and shares 4-digit Completion OTP.
+12. `Screen12_PaymentScreen`:
+    - Shows transparent bill summary: Base rate + Extra work + Overtime (+₹100 if >2 hrs) + 
+      Previous cancellation fee (+₹25 if applicable) - First time discount (₹50).
+    - Displays 80/10/6/4 fair wage allocation bar.
+    - User selects payment method: Dynamic UPI QR Code, Credit/Debit Card, NetBanking, or Cash to Artisan.
+13. `Screen13_PaymentSuccess`:
+    - Displays digital receipt with transaction ID.
+    - Generates and allows download of Seva Suraksha 30-Day Cooperative Warranty Certificate.
+14. `Screen14_RatingScreen`:
+    - Customer rates artisan (1 to 5 stars) across Punctuality, Quality, and Politeness.
+    - Optional cooperative tip (₹20, ₹50, ₹100 — 100% to artisan).
+    - Returns to Home dashboard.
+
+FLOW 2: BULK & COMMUNITY PROJECT BOOKING
+1. User taps "Community" tab on bottom navigation (`Screen18_CommunityScreen`).
+2. Toggles between "Societies & RWAs" and "Colleges & Campuses".
+3. Selects project category (e.g. Sump Cleaning, Solar Panel Rewiring, Hostel Deep Clean).
+4. Selects project scale (Micro Wing, Medium Block, Large Society, Mega Campus).
+5. Selects material grade (Standard ISI vs Premium Industrial).
+6. Reviews live cooperative deployment metrics: Assigned crew size (e.g. 6 Artisans), duration (3 Days), 
+   cost range (₹18,000 - ₹24,000), and 80/10/6/4 fair wage breakdown.
+7. Either:
+   - Taps "Schedule Site Inspection" (Free, 0 advance, Ward Coordinator visits site).
+   - Taps "Book Project & Deposit Advance" -> `Screen12_BulkPaymentScreen` -> Milestone 1 Escrow deposit.
+8. `Screen13_BulkProjectSuccess`:
+   - Confirms project locking in SBI MSCS Escrow.
+   - Downloads Campus Security Entry Gate Pass with verified artisan roster and vehicle numbers.
+   - Downloads official PDF project proposal for RWA/University records.
+
+FLOW 3: ACCESSIBLE IVRS VOICE BOOKING (`Screen_IVRSCall`)
+1. User taps telephone icon on dashboard header or dials toll-free cooperative number.
+2. Full-screen simulated phone call UI appears with call duration timer, speaker button, and dialpad.
+3. Automated multi-lingual IVRS voice engine synthesizes audio prompts:
+   "Welcome to UniServ Cooperative. Press 1 for English, 2 for Hindi, 3 for Tamil..."
+4. User taps DTMF dialpad keys (plays genuine synthesized dual-tone frequencies):
+   - Key 1: Language selected.
+   - Key 2: Service category chosen (e.g., 2 for Electrician).
+   - Key 1: Confirms immediate dispatch to registered doorstep address.
+5. Voice confirms booking: "Your booking for Electrician has been confirmed. A verified artisan will arrive 
+   within 15 minutes. Goodbye." Call disconnects and booking is added to active queue.
+
+FLOW 4: PROXY BOOKING FOR FAMILY / ELDERLY (`Screen_RegisterForAnother`)
+1. User taps "Book for Parents / Others" on home screen.
+2. Enters beneficiary's full name, phone number, and relationship (Parent, Grandparent, Relative, Tenant).
+3. Enters beneficiary's physical doorstep address and nearby landmark.
+4. Booking dispatch sends SMS alerts directly to the beneficiary while allowing the user to track 
+   and pay remotely through the app.
+
+====================================================================================================
+7. THE 6-STAGE SERVICE LIFECYCLE STATE MACHINE & DUAL-OTP HANDSHAKE
+====================================================================================================
+Every booking in UniServ transitions through a deterministic, auditable finite state machine (FSM) 
+managed in `BookingContext.js`:
+
+Stage 1: `requested`
+- Customer submits booking request.
+- Broadcasted to nearby verified cooperative workers in the hyper-local ward.
+
+Stage 2: `assigned`
+- Primary artisan accepts the job.
+- Worker photo, vehicle plate, rating, and cooperative credentials displayed to customer.
+
+Stage 3: `on_the_way`
+- Worker starts transit towards customer's location.
+- Live GPS tracking, ETA countdown, and itemized certified toolkit are active.
+
+Stage 4: `arrived` (Physical Handshake #1 - Start OTP)
+- Worker arrives at doorstep.
+- Customer verifies physical identity against app photo and ID badge.
+- Customer shares the 4-digit Start OTP (`start_otp`).
+- Worker inputs OTP to verify presence and unlock the active job timer.
+
+Stage 5: `work_started`
+- Active labor underway. Stopwatch timer runs continuously.
+- Covered under Seva Suraksha insurance pool.
+- Supports Phase I Part Procurement Pause and extra work approvals.
+
+Stage 6: `completed` (Physical Handshake #2 - Completion OTP)
+- Worker finishes service and tests all fixtures.
+- Customer inspects results.
+- Customer shares 4-digit Completion OTP (`completion_otp`) to authorize final billing.
+- Navigates to transparent payment settlement.
+
+====================================================================================================
+8. SPECIAL ALGORITHMIC PHASES (PHASES I, II, III, IV)
+====================================================================================================
+
+PHASE I: PART PROCUREMENT PAUSE & SECURE RESUME OTP
+- Problem Solved: In solo home services, if an artisan starts work and discovers that a specific spare part 
+  (e.g., specific MCB, capacitor, compressor relay) is required that takes hours or days to procure, 
+  traditional apps let the timer run, resulting in unfair charges to the customer.
+- Rule: STRICTLY for Electrician (`s2`) and Technician (`s7`). Other trades are not eligible.
+- Mechanism:
+  1. Artisan requests part procurement pause -> Customer accepts on screen.
+  2. Stopwatch timer immediately freezes at current elapsed seconds (`timerAccumulatedSeconds`).
+  3. System generates a cryptographically secure 4-digit Resume OTP (`procurement_resume_otp`) and displays 
+     it exclusively to the customer.
+  4. Timer remains completely stopped with zero tick accumulation even across app reloads.
+  5. When the worker returns with the purchased part, customer enters the Resume OTP into the app.
+  6. Timer safely resumes from the exact frozen second.
+
+PHASE II: AUTOMATIC 2-HOUR OVERTIME SURCHARGE (+₹100)
+- Problem Solved: Cooperative workers must be fairly compensated when complex diagnostic tasks take longer 
+  than the standard 2-hour window.
+- Rule: Common to ALL 10 cooperative household services.
+- Mechanism:
+  1. The stopwatch monitors total active labor time (`activeSeconds`).
+  2. If `activeSeconds > 7200` (120 minutes / 2 hours), the system automatically triggers the overtime flag.
+  3. An automatic overtime surcharge of +₹100 is appended to the bill calculation (`overtime_surcharge: 100`).
+  4. Clear warning and explanation banner is rendered in the payment breakdown so the customer knows 
+     why the fee was applied.
+
+PHASE III: CANCELLATION SURCHARGE PROTECTION (+₹25)
+- Problem Solved: Frivolous customer cancellations after an artisan has already accepted and traveled 
+  waste artisan fuel, time, and lost wage opportunities.
+- Mechanism:
+  1. On the live tracking screen (`Screen07_LiveTracking`), a "Cancel Service" button is provided.
+  2. If the customer taps Cancel while the artisan is assigned/en route, an alert warns:
+     "If you cancel now, our cooperative artisan has already reserved time and fuel for your visit. 
+     A nominal cooperative cancellation fee of ₹25 will be charged on your NEXT service booking."
+  3. If confirmed, the booking is terminated and `pendingCancellationFee: 25` is persisted in user state.
+  4. On the very next booking created by this user, the ₹25 fee is automatically attached (`cancellationPenalty: 25`).
+  5. The booking form and final payment screen render a red penalty banner showing the +₹25 fee.
+  6. Upon successful payment of the next booking, the pending cancellation penalty is reset to ₹0.
+
+PHASE IV: 30 KYC-VERIFIED WORKERS WITH STRICT TRADE ISOLATION
+- Problem Solved: Aggregators frequently display generic workers or cross-dispatch untrained workers 
+  (e.g., sending a plumber to fix an electrical short circuit or sending Rajan Kumar for everything).
+- Rule:
+  1. The worker pool (`src/data/workers.json`) contains exactly 30 KYC-verified master artisans.
+  2. Exactly 3 distinct workers are registered per trade across all 10 trades:
+     * Plumber (`s1`)         : Rajan Kumar (`w1`), Amit Roy (`w11`), Suresh Patel (`w21`)
+     * Electrician (`s2`)     : Vikram Singh (`w2`), Harish Chandra (`w12`), Manoj Sharma (`w22`)
+     * Cleaner (`s3`)         : Sunita Devi (`w3`), Radha Rani (`w13`), Lakshmi Bai (`w23`)
+     * Carpenter (`s4`)       : Mohammad Irfan (`w4`), Gurpreet Singh (`w14`), Naresh Mistry (`w24`)
+     * Painter (`s5`)         : Manoj Verma (`w5`), Pradeep Yadav (`w15`), Rameshwar Das (`w25`)
+     * Caregiver (`s6`)       : Ananya Barman (`w6`), Meena Kumari (`w16`), Sister Mary (`w26`)
+     * Technician (`s7`)      : Dinesh Sharma (`w7`), Pankaj Joshi (`w17`), Deepak Rawat (`w27`)
+     * Domestic Helper (`s8`) : Kavita Devi (`w8`), Shanti Bai (`w18`), Geeta Ben (`w28`)
+     * Driver (`s9`)          : Rajesh Rawat (`w9`), Balwinder Singh (`w19`), Manjunath Swamy (`w29`)
+     * Gardener (`s10`)       : Ramu Kaka (`w10`), Jagdish Mali (`w20`), Govind Ram (`w30`)
+  3. Strict trade isolation algorithm (`getFallbackWorkerForTrade`) ensures zero trade leakage. 
+     Rajan Kumar (Plumber) is NEVER dispatched for electrical, carpentry, driving, or any other trade.
+  4. Multilingual trade aliases (e.g. Tamil 'டிரைவர்', Hindi 'ड्राइवर') resolve seamlessly to their correct trade.
+
+====================================================================================================
+9. VEHICLE TYPE SELECTOR (5/7 SEATER) & MOBILITY DISPATCH ENGINE
+====================================================================================================
+In cooperative household services, the Driver / Chauffeur service (`s9`) provides a dual-mode mobility 
+selector built into `Screen05_BookingForm.js`:
+
+1. SERVICE MODE SELECTION:
+   - Driver Only: The artisan drives the customer's personal vehicle.
+   - Car with Driver: Commercial air-conditioned cab with fuel, toll, and cooperative chauffeur included.
+
+2. VEHICLE CAPACITY SELECTOR (5 / 7 SEATER):
+   - 5 Seater Card:
+     * Icon: `car-sport` | Active radio button highlight.
+     * Cab subtitle: "Sedan / Hatchback (Dzire / Etios)".
+     * Own Car subtitle: "Hatchback / Sedan (Own Car)".
+     * Starting price badge: "From ₹599" (Cab) / "Standard Rate" (Own Car).
+   - 7 Seater Card:
+     * Icon: `bus` / `car` | Active radio button highlight.
+     * Cab subtitle: "SUV / MUV (Ertiga / Innova / Carens)".
+     * Own Car subtitle: "SUV / MUV (+₹100 Heavy Car)".
+     * Starting price badge: "From ₹899" (Cab) / "+₹100 SUV Surcharge" (Own Car).
+
+3. DYNAMIC TRIP PACKAGE PRICING MATRIX:
+   +---------------------------+----------+--------------+---------------+---------------+
+   | Trip Package              | 5-Seater | 7-Seater Cab | 5-Seater Own  | 7-Seater Own  |
+   |                           | (Cab)    | (Cab SUV)    | Car (Driver)  | Car (Driver)  |
+   +---------------------------+----------+--------------+---------------+---------------+
+   | City Commute (2 hrs)      | ₹599     | ₹899         | ₹199          | ₹299          |
+   | Full Day City (8 hrs)     | ₹1,799   | ₹2,499       | ₹699          | ₹799          |
+   | Airport Transfer          | ₹799     | ₹1,199       | ₹299          | ₹399          |
+   | Outstation Round-Trip     | ₹2,799   | ₹3,799       | ₹1,199        | ₹1,299        |
+   +---------------------------+----------+--------------+---------------+---------------+
+
+4. TRANSMISSION CHIPS (For Driver Only Mode):
+   - Manual (MT)    : Included in base rate.
+   - Automatic (AT) : +₹100 surcharge (requires specialized automatic transmission certified driver).
+   - Electric (EV)  : +₹100 surcharge (regenerative braking & EV charge monitoring protocol).
+
+5. POPULAR DESTINATION PILLS & GPS ROUTE AUTOFILL:
+   - Pickup & Drop address timeline inputs with single-tap GPS Doorstep Autofill.
+   - Quick destination pills: IGI Airport Terminal 3, Cyber Hub Gurugram, Max Super Speciality Hospital, 
+     New Delhi Railway Station, Select Citywalk.
+
+6. TRACKING REFLECTION:
+   - On `Screen07_LiveTracking`, the driver's trust card explicitly reflects the chosen vehicle and capacity:
+     e.g., "7 Seater SUV / MUV (Ertiga / Innova) • DL 1Y CA 9042".
+
+====================================================================================================
+10. 80/10/6/4 FAIR WAGE ALLOCATION, ESCROW & PAYMENT ARCHITECTURE
+====================================================================================================
+Every invoice in UniServ is mathematically transparent. Customers inspect the exact rupee distribution:
+
+FORMULA:
+- Total Customer Bill = Base Rate + Extra Work + Extra Crew + Overtime (+₹100) + Cancellation Penalty (+₹25) - First Time Discount (₹50).
+- Direct Artisan Compensation (80%): Directly credited to the artisan's cooperative bank account.
+- Cooperative Welfare & Healthcare Fund (10%): Covers accidental insurance, medical OPD, and maternity cover.
+- District Co-op Reserve & Tool Bank (6%): Funds communal heavy machinery, training centers, and depot rent.
+- Platform Operation & Seva Suraksha Pool (4%): Funds server infrastructure, GPS APIs, and insurance payouts.
+
+PAYMENT GATEWAY MODES:
+1. Dynamic UPI QR Code:
+   - Generates live UPI intent string (`upi://pay?pa=uniserv.coop@sbi&pn=UniServ+Cooperative&am=...`).
+   - Customer scans using Google Pay, PhonePe, Paytm, or BHIM.
+2. Credit & Debit Cards:
+   - Visa, Mastercard, RuPay card inputs with CVV and expiry verification.
+3. NetBanking:
+   - SBI, HDFC, ICICI, Axis, PNB and 50+ Indian cooperative banks.
+4. Cash on Service Completion:
+   - Customer pays exact cash to artisan upon Completion OTP handshake.
+
+====================================================================================================
+11. SEVA SURAKSHA STATUTORY GUARANTEE & RESOLUTION MATRIX
+====================================================================================================
+Available on `Screen17_SevaSurakshaScreen.js`, the Seva Suraksha guarantee is a statutory, 
+legally binding cooperative warranty:
+
+1. 30-Day Zero-Cost Rework Guarantee:
+   - If a repaired tap leaks, MCB trips, or paint peels within 30 days, a master artisan re-attends 
+     at ₹0 charge.
+2. ₹10,000 Accidental Property Damage Cover:
+   - Any accidental damage caused during service execution is compensated from the 4% Seva Suraksha pool.
+3. 100% Price Transparency:
+   - Zero hidden surge charges; emergency priority is fixed at flat ₹100.
+4. Background & Police Verified Artisans:
+   - 100% Aadhaar KYC, trade certificate, and police verification on file.
+5. Standardized Spare Parts Warranty:
+   - 90-day replacement warranty on all genuine spare parts supplied by cooperative depots.
+
+====================================================================================================
+12. MULTIMODAL DIAGNOSTICS: AUDIO VOICE RECORDER, VIDEO & CAMERA ENGINE
+====================================================================================================
+UniServ allows customers to explain intricate technical problems without typing complex descriptions:
+
+1. AUDIO VOICE NOTE RECORDER (`AudioVoiceRecorder.js`):
+   - Micro-component integrated directly into booking form and live tracking screens.
+   - Dual Web Audio & Speech Recognition:
+     * Captures live microphone audio using MediaStream / MediaRecorder API.
+     * Simultaneously runs HTML5 Web SpeechRecognition for live regional voice transcription.
+   - Audio Waveform Visualization:
+     * Pulsing animated sound waves reflect live voice amplitude.
+   - Playback Engine:
+     * In-memory audio playback with play/pause, scrub bar, duration timer, and volume control.
+   - Sent directly to the artisan so they listen to the fault sound (e.g. rattling AC compressor) 
+     before arriving.
+
+2. MEDIA CAPTURE MODAL (`MediaCaptureModal.js`):
+   - Multi-photo attachment support for pipe leakages, damaged switchboards, or cracked walls.
+   - Short 15-second diagnostic video recording with duration badge.
+   - Thumbnail carousel with quick-remove tags.
+
+====================================================================================================
+13. 23 INDIAN REGIONAL LANGUAGES & DYNAMIC LOCALIZATION SUBSYSTEM
+====================================================================================================
+UniServ is engineered for universal Indian adoption across all linguistic demographics:
+
+SUPPORTED LANGUAGES (`src/data/languages.json`):
+1. English (English)
+2. Hindi (हिंदी)
+3. Tamil (தமிழ்)
+4. Telugu (తెలుగు)
+5. Kannada (ಕನ್ನಡ)
+6. Malayalam (മലയാളം)
+7. Marathi (मराठी)
+8. Gujarati (ગુજરાતી)
+9. Bengali (বাংলা)
+10. Punjabi (ਪੰਜਾਬੀ)
+11. Odia (ଓଡ଼ିଆ)
+12. Assamese (অসমীয়া)
+13. Urdu (اردو)
+14. Sanskrit (संस्कृतम्)
+15. Maithili (मैथिली)
+16. Santali (संथाली)
+17. Kashmiri (कॉशुर)
+18. Nepali (नेपाली)
+19. Konkani (कोंकणी)
+20. Sindhi (सिन्धी)
+21. Dogri (डोगरी)
+22. Manipuri (মৈতৈলোন্)
+23. Bodo (बड़ो)
+
+LOCALIZATION ARCHITECTURE:
+- Safe Fallback Engine (`getTranslation` in `src/i18n/translations.js`):
+  * Strictly returns localized string -> falls back to base English -> falls back to user-provided fallback.
+  * GUARANTEE: Never prints raw developer translation keys (e.g., `toolkit_s1`, `recordVoiceNoteTitle`) 
+    on the user interface.
+- Complete Dictionaries:
+  * English, Hindi (`hi`), and Tamil (`ta`) contain full dictionaries across all UI controls, toolkits, 
+    service details, emergency terms, and payment receipts.
+  * Trade Question Dictionaries (`tradeQuestionsTranslations.js`):
+    Translates all 30 trade-specific triage chips into regional Indian scripts.
+
+====================================================================================================
+14. INCLUSIVE ACCESSIBILITY SUITE: IVRS VOICE CALLING & PROXY ASSISTANCE
+====================================================================================================
+
+1. IVRS VOICE CALLING SIMULATOR (`Screen_IVRSCall.js` & `ivrsAudioEngine.js`):
+   - Designed for citizens who cannot read or navigate mobile app UIs.
+   - Audio Engine:
+     * Dual-Tone Multi-Frequency (DTMF) Synthesizer: Uses Web Audio API `AudioContext` to generate 
+       authentic dual sine waves (e.g. 1209Hz + 697Hz for '1', 1336Hz + 697Hz for '2') with smooth 
+       gain ramping.
+     * Multilingual Speech Synthesizer: Uses `window.speechSynthesis` with regional voice tags 
+       (`en-IN`, `hi-IN`, `ta-IN`) to speak out clear interactive prompts.
+   - Interactive Menu Navigation:
+     * Step 1: Language selection (1 for English, 2 for Hindi, 3 for Tamil).
+     * Step 2: Category selection (1 Plumber, 2 Electrician, 3 Cleaner, 4 Carpenter, etc.).
+     * Step 3: Doorstep confirmation & instant automated booking creation.
+
+2. "REGISTER FOR ANOTHER" PROXY BOOKING (`Screen_RegisterForAnother.js`):
+   - Empowers working professionals to book services for elderly parents, distant grandparents, 
+     or tenants in another city.
+   - Separate contact phone and address fields ensure the visiting artisan coordinates directly 
+     with the on-site resident while billing and tracking remain in the app owner's control.
+
+====================================================================================================
+15. DATA CONTRACTS, SCHEMAS & INTER-APP EVENT SPECIFICATIONS
+====================================================================================================
+
+BOOKING OBJECT SCHEMA (`BookingContext.js`):
+```json
+{
+  "booking_id": "BK84920",
+  "service": {
+    "id": "s2",
+    "name": "Electrician",
+    "icon": "flash",
+    "start_price": 99
+  },
+  "scale_mode": "solo",
+  "is_bulk_project": false,
+  "worker_count": 1,
+  "single_worker_base": 99,
+  "extra_worker_cost": 0,
+  "address": "Flat 302, Palm Heights, Lajpat Nagar, New Delhi",
+  "user_coords": { "latitude": 28.5672, "longitude": 77.2435 },
+  "booking_type": "now",
+  "status": "work_started",
+  "start_otp": "4821",
+  "completion_otp": "9182",
+  "worker": {
+    "id": "w2",
+    "name": "Vikram Singh",
+    "photo": "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=300&q=80",
+    "skill": "Electrician",
+    "rating": 4.9,
+    "cooperative": "Delhi Electrical Labour Cooperative Society",
+    "vehicle_plate": "DL 3S CD 8492"
+  },
+  "trade_subtype": "MCB Tripping / Short Circuit",
+  "trade_scope": "Single Phase 230V",
+  "trade_details": "Artisan Bringing ISI Spares",
+  "description": "Main circuit breaker tripping repeatedly.",
+  "voice_note": { "uri": "blob:...", "duration": "0:18" },
+  "attachments": [{ "id": "m1", "type": "photo", "uri": "..." }],
+  "stopwatch_running": true,
+  "elapsed_seconds": 1840,
+  "timer_paused_for_procurement": false,
+  "procurement_resume_otp": null,
+  "overtime_surcharge": 0,
+  "pending_cancellation_fee": 0,
+  "first_time_discount": 50,
+  "base_amount": 99,
+  "final_amount": 49
+}
+```
+
+====================================================================================================
+16. VERIFICATION, AUTOMATED TEST SUITES & QUALITY ASSURANCE RECORD
+====================================================================================================
+The entire application undergoes rigorous automated verification across multiple test harnesses 
+located in `/scratch`:
+
+1. `verify_all_coop_phases.js` (Phases I to IV Master Test):
+   - Result: 94 Passed, 0 Failed.
+   - Validates:
+     * Full Babel AST parsing of all 23 screens, contexts, and utils.
+     * Trade isolation of all 30 workers (zero trade leakage across all 10 trades).
+     * Part procurement pause & resume OTP rules (strictly Electrician & Technician).
+     * Automatic overtime charge trigger (> 2 hours = +₹100).
+     * Previous cancellation fee attachment (+₹25) and post-payment reset.
+     * Zero hardcoded "Rajan Kumar" string fallbacks.
+
+2. `test_payment_reflections.js`:
+   - Result: All Scenarios Passed (10/10).
+   - Validates:
+     * Base pricing calculation across all 10 household trades.
+     * Multi-worker squad scaling (+₹199 for Cleaner, +₹149 for Gardener).
+     * Emergency priority surge (+₹100).
+     * Extra work line-item addition.
+     * Part procurement addition.
+     * Stacked add-on math accuracy.
+
+3. `test_vehicle_type_selector.js`:
+   - Result: All Tests Passed.
+   - Validates:
+     * 5-Seater vs 7-Seater pricing across all 4 trip packages in Car with Driver mode.
+     * 5-Seater vs 7-Seater pricing in Driver Only mode with Automatic (+₹100) and EV (+₹100).
+     * Complete translation key coverage across English, Tamil, and Hindi.
+
+====================================================================================================
+17. PRODUCTION DEPLOYMENT & ROADMAP SPECIFICATIONS
+====================================================================================================
+1. Expo Web Build:
+   - Run `npx expo export --platform web` to compile high-performance optimized web bundles into `/dist`.
+2. Native Mobile Build:
+   - Android: `eas build --platform android --profile production` (Generates signed AAB for Google Play).
+   - iOS: `eas build --platform ios --profile production` (Generates IPA for Apple App Store).
+3. Cloud Backend Integration:
+   - Designed for zero-friction connection with Node.js / Python FastAPI microservices and 
+     PostgreSQL / MongoDB database backends.
+   - WebSocket streaming ready for sub-second live GPS vehicle coordinate synchronization.
+
+====================================================================================================
+                                      END OF DOCUMENTATION
+====================================================================================================
